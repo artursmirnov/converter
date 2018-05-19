@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as actions from '../../store/actions';
 
 class CurrencyConverterPage extends Component {
 
   componentDidMount() {
-    fetch('/api/currencies');
+    this.props.dispatch(actions.fetchCurrenciesRequested());
   }
 
   render() {

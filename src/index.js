@@ -7,9 +7,9 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import { HashRouter as Router } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import 'typeface-roboto';
-import './store/sagas';
 
-import sagaMiddleware from './store/sagaMiddleware';
+import sagaMiddleware, { run } from './store/sagaMiddleware';
+import * as sagas from './store/sagas';
 import * as reducers from './store/reducers';
 
 import { createServer } from './server';
@@ -21,6 +21,8 @@ import theme from './themes/main';
 const store = createStore(combineReducers(reducers), composeWithDevTools(
   applyMiddleware(sagaMiddleware)
 ));
+
+run(sagas);
 
 createServer();
 

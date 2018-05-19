@@ -1,6 +1,10 @@
 import Immutable from 'seamless-immutable';
 import _ from 'lodash';
 
+import {
+  FETCH_CURRENCIES_SUCCEEDED
+} from '../../actionTypes';
+
 const initialState = Immutable({
   currencies: {},
   baseCurrency: 'USD'
@@ -8,6 +12,10 @@ const initialState = Immutable({
 
 export default function reduce(state = initialState, action = {}) {
   switch (action.type) {
+    case FETCH_CURRENCIES_SUCCEEDED:
+      return state.merge({
+        currencies: action.currencies
+      });
     default:
       return state;
   }
