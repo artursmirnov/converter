@@ -12,6 +12,8 @@ import './store/sagas';
 import sagaMiddleware from './store/sagaMiddleware';
 import * as reducers from './store/reducers';
 
+import { createServer } from './server';
+
 import App from './components/App';
 
 import theme from './themes/main';
@@ -19,6 +21,8 @@ import theme from './themes/main';
 const store = createStore(combineReducers(reducers), composeWithDevTools(
   applyMiddleware(sagaMiddleware)
 ));
+
+createServer();
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>

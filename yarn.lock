@@ -2719,6 +2719,10 @@ extsprintf@^1.2.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
 
+faker@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/faker/-/faker-4.1.0.tgz#1e45bbbecc6774b3c195fad2835109c6d748cc3f"
+
 fast-deep-equal@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-1.1.0.tgz#c053477817c86b51daa853c81e059b733d023614"
@@ -2774,6 +2778,18 @@ fbjs@^0.8.1, fbjs@^0.8.16:
     promise "^7.1.1"
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.9"
+
+fetch-pretender@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/fetch-pretender/-/fetch-pretender-1.5.0.tgz#b709183a62f7858cdb773771d939178a20904194"
+  dependencies:
+    fetchme "^2.0.0"
+    route-recognizer "^0.1.9"
+    xhr-pretender "^1.4.0"
+
+fetchme@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/fetchme/-/fetchme-2.1.0.tgz#c3b66322572e20544f6c2c475991551faa85ae5f"
 
 figures@^2.0.0:
   version "2.0.0"
@@ -6285,6 +6301,10 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
+route-recognizer@^0.1.9:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/route-recognizer/-/route-recognizer-0.1.11.tgz#810d8e5702abb4056d6dcb8e865c5685e7c14eb7"
+
 run-async@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/run-async/-/run-async-2.3.0.tgz#0371ab4ae0bdd720d4166d7dfda64ff7a445a6c0"
@@ -7476,6 +7496,10 @@ write@^0.2.1:
 xdg-basedir@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/xdg-basedir/-/xdg-basedir-3.0.0.tgz#496b2cc109eca8dbacfe2dc72b603c17c5870ad4"
+
+xhr-pretender@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/xhr-pretender/-/xhr-pretender-1.4.0.tgz#fe988af27cc5a1a88c78a6aaebc3b3330b51a650"
 
 xml-name-validator@^2.0.1:
   version "2.0.1"

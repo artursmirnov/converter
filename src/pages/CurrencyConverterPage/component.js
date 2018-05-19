@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default () => (
-  <div>
-    Currency Converter Page
-  </div>
-)
+class CurrencyConverterPage extends Component {
 
+  componentDidMount() {
+    fetch('/api/currencies');
+  }
+
+  render() {
+    return (
+      <div>
+        Currency Converter Page
+      </div>
+    );
+  }
+
+}
+
+function mapStateToProps(state) {
+  return {};
+}
+
+export default connect(mapStateToProps)(CurrencyConverterPage);
