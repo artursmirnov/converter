@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import registerServiceWorker from './registerServiceWorker';
@@ -14,7 +15,9 @@ import App from './components/App';
 
 import theme from './themes/main';
 
-const store = createStore(combineReducers(reducers), applyMiddleware(sagaMiddleware));
+const store = createStore(combineReducers(reducers), composeWithDevTools(
+  applyMiddleware(sagaMiddleware)
+));
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
