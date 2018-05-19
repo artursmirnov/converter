@@ -4,7 +4,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import 'typeface-roboto';
-import App from './App';
+import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 
 import * as reducers from './store/reducers';
