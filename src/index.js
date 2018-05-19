@@ -4,6 +4,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
+import { HashRouter as Router } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import 'typeface-roboto';
 import './store/sagas';
@@ -21,9 +22,11 @@ const store = createStore(combineReducers(reducers), composeWithDevTools(
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
-    <Provider store={ store }>
-      <App />
-    </Provider>
+    <Router>
+      <Provider store={ store }>
+        <App />
+      </Provider>
+    </Router>
   </MuiThemeProvider>,
   document.getElementById('root')
 );
