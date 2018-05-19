@@ -1,0 +1,6 @@
+/**
+ * Currencies
+ */
+export const FETCH_CURRENCIES_REQUESTED = 'currencies.FETCH_CURRENCIES_REQUESTED';
+export const FETCH_CURRENCIES_SUCCEEDED = 'currencies.FETCH_CURRENCIES_SUCCEEDED';
+export const FETCH_CURRENCIES_FAILED = 'currencies.FETCH_CURRENCIES_FAILED';
