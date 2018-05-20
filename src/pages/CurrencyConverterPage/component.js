@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 
-import { fetchCurrenciesRequested } from '../../store/actionTypes';
+import { fetchCurrenciesRequested } from '../../store/actions';
 
 import styles from './styles';
 
@@ -42,7 +42,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchCurrencies: dispatch(fetchCurrenciesRequested())
+    fetchCurrencies: () => dispatch(fetchCurrenciesRequested())
   };
 }
 
