@@ -1,25 +1,51 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as actions from '../../store/actions';
+import { withStyles } from '@material-ui/core/styles';
 
-class CurrencyConverterPage extends Component {
+import { fetchCurrenciesRequested } from '../../store/actionTypes';
+
+import styles from './styles';
+
+export class CurrencyConverterPage extends Component {
+
+  static propTypes = {
+    fetchCurrencies: PropTypes.func.isRequired
+  }
+
+  static defaultProps = {
+    fetchCurrencies: () => {}
+  }
 
   componentDidMount() {
-    this.props.dispatch(actions.fetchCurrenciesRequested());
+    this.props.fetchCurrencies();
   }
 
   render() {
+    const { classes } = this.props;
+
     return (
-      <div>
-        Currency Converter Page
+      <div className={ classes.root }>
+        CurrencyConverterPage
       </div>
     );
   }
 
 }
 
+export const CurrencyConverterPageStyled = withStyles(styles)(CurrencyConverterPage);
+
 function mapStateToProps(state) {
-  return {};
+  return {
+  };
 }
 
-export default connect(mapStateToProps)(CurrencyConverterPage);
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchCurrencies: dispatch(fetchCurrenciesRequested())
+  };
+}
+
+export const CurrencyConverterPageConnected = connect(mapStateToProps, mapDispatchToProps)(CurrencyConverterPageStyled)
+
+export default CurrencyConverterPageConnected;

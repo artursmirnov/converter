@@ -4,11 +4,19 @@
     "alternate": "src/components/{}/styles.js",
     "template": [
       "import React, {open} Component {close} from 'react';",
+      "import PropTypes from 'prop-types';",
       "import {open} withStyles {close} from '@material-ui/core/styles';",
       "",
       "import styles from './styles';",
       "",
-      "class {} extends Component {open}",
+      "export class {} extends Component {open}",
+      "",
+      "  static propTypes = {open}",
+      "  {close}",
+      "",
+      "  static defaultProps = {open}",
+      "  {close}",
+      "",
       "  render() {open}",
       "    const {open} classes {close} = this.props;",
       "",
@@ -18,9 +26,12 @@
       "      </div>",
       "    );",
       "  {close}",
+      "",
       "{close}",
       "",
-      "export default withStyles(styles)({});"
+      "export const {}Styled = withStyles(styles)({});",
+      "",
+      "export default {}Styled;"
     ]
   },
   "src/components/*/styles.js": {
@@ -44,10 +55,11 @@
     "template": [
       "import React from 'react';",
       "import {open} shallow {close} from 'enzyme';",
-      "import {} from './component';",
+      "import {open} expect {close} from 'chai';",
+      "import {open} {}Styled {close} from './component';",
       "",
       "it('renders without crashing', () => {open}",
-      "  shallow(<{} />);",
+      "  shallow(<{}Styled />);",
       "{close});"
     ]
   },
@@ -65,12 +77,20 @@
     "alternate": "src/pages/{}/styles.js",
     "template": [
       "import React, {open} Component {close} from 'react';",
-      "import { connect } from 'react-redux';",
+      "import PropTypes from 'prop-types';",
+      "import {open} connect {close} from 'react-redux';",
       "import {open} withStyles {close} from '@material-ui/core/styles';",
       "",
       "import styles from './styles';",
       "",
-      "class {} extends Component {open}",
+      "export class {} extends Component {open}",
+      "",
+      "  static propTypes = {open}",
+      "  {close}",
+      "",
+      "  static defaultProps = {open}",
+      "  {close}",
+      "",
       "  render() {open}",
       "    const {open} classes {close} = this.props;",
       "",
@@ -80,13 +100,24 @@
       "      </div>",
       "    );",
       "  {close}",
+      "",
       "{close}",
+      "",
+      "export const {}Styled = withStyles(styles)({});",
       "",
       "function mapStateToProps(state) {open}",
-      "  return {open}{close};",
+      "  return {open}",
+      "  {close};",
       "{close}",
       "",
-      "export default connect(mapStateToProps)(withStyles(styles)({}));"
+      "function mapDispatchToProps(dispatch) {open}",
+      "  return {open}",
+      "  {close};",
+      "{close}",
+      "",
+      "export const {}Connected = connect(mapStateToProps, mapDispatchToProps)({}Styled)",
+      "",
+      "export default {}Connected;"
     ]
   },
   "src/pages/*/styles.js": {
@@ -109,13 +140,12 @@
     "alternate": "src/pages/{}/index.js",
     "template": [
       "import React from 'react';",
-      "import ReactDOM from 'react-dom';",
-      "import {} from './component';",
+      "import {open} shallow {close} from 'enzyme';",
+      "import {open} expect {close} from 'chai';",
+      "import {open} {}Styled {close} from './component';",
       "",
       "it('renders without crashing', () => {open}",
-      "  const div = document.createElement('div');",
-      "  ReactDOM.render(<{} />, div);",
-      "  ReactDOM.unmountComponentAtNode(div);",
+      "  shallow(<{}Styled />);",
       "{close});"
     ]
   },
@@ -173,6 +203,7 @@
     "type": "reducer-test",
     "alternate": "src/store/reducers/{}/index.js",
     "template": [
+      "import {open} expect {close} from 'chai';",
       "import reducer from './reducer';",
       "",
       "it('executes without errors', () => {open}",
@@ -180,7 +211,7 @@
       "{close});",
       "",
       "it('returns unmodified state without action', () => {open}",
-      "  const state = { test: true };",
+      "  const state = {open} test: true {close};",
       "  const result = reducer(state);",
       "  expect(result).to.deep.equal(state);",
       "{close});"
@@ -199,7 +230,7 @@
     "type": "action",
     "alternate": "src/store/actions/{}/action.test.js",
     "template": [
-      "import {open} /* ACTION_TYPE */ {close} from '../actionTypes';",
+      "import {open} /* ACTION_TYPE */ {close} from '../../actionTypes';",
       "",
       "export default function {}() {open}",
       "  return {open}",
@@ -212,6 +243,7 @@
     "type": "action-test",
     "alternate": "src/store/actions/{}/index.js",
     "template": [
+      "import {open} expect {close} from 'chai';",
       "import actionCreator from './action';",
       "import {open} /* ACTION_TYPE */ {close} from '../../actionTypes';",
       "",
@@ -240,11 +272,11 @@
     "template": [
       "import {open} call, put, takeLatest, takeEvery {close} from 'redux-saga/effects';",
       "",
-      "import {open} /* REQUEST_ACTION */ {close} from '../actionTypes';",
+      "import {open} /* REQUEST_ACTION */ {close} from '../../actionTypes';",
       "",
-      "import {open} /* successAction, errorAction */ {close} from '../actions';",
+      "import {open} /* successAction, errorAction */ {close} from '../../actions';",
       "",
-      "function* {}() {open}",
+      "export function* {}() {open}",
       "  try {open}",
       "    // const result = something",
       "    // yield put(successAction(result));",
@@ -253,7 +285,7 @@
       "  {close}",
       "{close}",
       "",
-      "function* saga() {open}",
+      "export function* saga() {open}",
       "  // yield takeEvery(REQUEST_ACTION, {});",
       "{close}",
       "",
@@ -263,7 +295,17 @@
   "src/store/sagas/*/saga.test.js": {
     "type": "saga-test",
     "alternate": "src/store/sagas/{}/index.js",
-    "template": []
+    "template": [
+      "import {open} expect {close} from 'chai';",
+      "import {open} {}, saga {close} from './saga';",
+      "",
+      "it('exists', () => {open}",
+      "  expect({}).to.be.a('function');",
+      "  expect({}).to.respondTo('next');",
+      "  expect(saga).to.be.a('function');",
+      "  expect(saga).to.respondTo('next');",
+      "{close});"
+    ]
   },
   "src/store/sagas/*/index.js": {
     "type": "sagas-index",
@@ -287,6 +329,7 @@
     "type": "helper-test",
     "alternate": "src/helpers/{}/index.js",
     "template": [
+      "import {open} expect {close} from 'chai';",
       "import helperFunction from './helper';",
       "",
       "it('executes without errors', () => {open}",
@@ -320,6 +363,7 @@
     "type": "service-test",
     "alternate": "src/services/{}/index.js",
     "template": [
+      "import {open} expect {close} from 'chai';",
       "import service from './service';",
       "",
       "it('exists', () => {open}",

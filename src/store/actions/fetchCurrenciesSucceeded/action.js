@@ -1,4 +1,4 @@
-import { FETCH_CURRENCIES_SUCCEEDED } from '../actionTypes';
+import { FETCH_CURRENCIES_SUCCEEDED } from '../../actionTypes';
 
 export default function fetchCurrenciesSucceeded(currencies = {}) {
   return {

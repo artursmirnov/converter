@@ -1,4 +1,4 @@
-import currencies from './currencies/reducer';
+import currencies from './currencies';
 
 export {
   currencies

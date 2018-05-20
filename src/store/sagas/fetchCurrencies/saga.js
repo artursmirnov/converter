@@ -1,14 +1,14 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import Api from '../../services/Api';
+import Api from '../../../services/Api';
 
-import { FETCH_CURRENCIES_REQUESTED } from '../actionTypes';
+import { FETCH_CURRENCIES_REQUESTED } from '../../actionTypes';
 
 import {
   fetchCurrenciesSucceeded,
   fetchCurrenciesFailed
-} from '../actions';
+} from '../../actions';
 
-function* fetchCurrencies() {
+export function* fetchCurrencies() {
   try {
     const currencies = yield call(Api.fetchCurrencies);
     const currenciesByCode = {};
@@ -27,7 +27,7 @@ function* fetchCurrencies() {
   }
 }
 
-function* saga() {
+export function* saga() {
   yield takeLatest(FETCH_CURRENCIES_REQUESTED, fetchCurrencies);
 }
 

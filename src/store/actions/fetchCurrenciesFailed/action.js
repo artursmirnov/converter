@@ -1,4 +1,4 @@
-import { FETCH_CURRENCIES_FAILED } from '../actionTypes';
+import { FETCH_CURRENCIES_FAILED } from '../../actionTypes';
 
 export default function fetchCurrenciesFailed(error = {}) {
   return {
@@ -6,4 +6,3 @@ export default function fetchCurrenciesFailed(error = {}) {
     error
   }
 }
-
