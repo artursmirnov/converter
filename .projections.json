@@ -1,0 +1,346 @@
+{
+  "src/components/*/component.js": {
+    "type": "component",
+    "alternate": "src/components/{}/styles.js",
+    "template": [
+      "import React, {open} Component {close} from 'react';",
+      "import {open} withStyles {close} from '@material-ui/core/styles';",
+      "",
+      "import styles from './styles';",
+      "",
+      "class {} extends Component {open}",
+      "  render() {open}",
+      "    const {open} classes {close} = this.props;",
+      "",
+      "    return (",
+      "      <div className={open} classes.root {close}>",
+      "        {}",
+      "      </div>",
+      "    );",
+      "  {close}",
+      "{close}",
+      "",
+      "export default withStyles(styles)({});"
+    ]
+  },
+  "src/components/*/styles.js": {
+    "type": "component-styles",
+    "alternate": "src/components/{}/component.test.js",
+    "template": [
+      "export default theme => {open}",
+      "  return {open}",
+      "",
+      "    root: {open}",
+      "",
+      "    {close}",
+      "",
+      "  {close};",
+      "{close};"
+    ]
+  },
+  "src/components/*/component.test.js": {
+    "type": "component-test",
+    "alternate": "src/components/{}/index.js",
+    "template": [
+      "import React from 'react';",
+      "import {open} shallow {close} from 'enzyme';",
+      "import {} from './component';",
+      "",
+      "it('renders without crashing', () => {open}",
+      "  shallow(<{} />);",
+      "{close});"
+    ]
+  },
+  "src/components/*/index.js": {
+    "type": "components-index",
+    "alternate": "src/components/{}/component.js",
+    "template": [
+      "import component from './component';",
+      "export default component;"
+    ]
+  },
+
+  "src/pages/*/component.js": {
+    "type": "page",
+    "alternate": "src/pages/{}/styles.js",
+    "template": [
+      "import React, {open} Component {close} from 'react';",
+      "import { connect } from 'react-redux';",
+      "import {open} withStyles {close} from '@material-ui/core/styles';",
+      "",
+      "import styles from './styles';",
+      "",
+      "class {} extends Component {open}",
+      "  render() {open}",
+      "    const {open} classes {close} = this.props;",
+      "",
+      "    return (",
+      "      <div className={open} classes.root {close}>",
+      "        {}",
+      "      </div>",
+      "    );",
+      "  {close}",
+      "{close}",
+      "",
+      "function mapStateToProps(state) {open}",
+      "  return {open}{close};",
+      "{close}",
+      "",
+      "export default connect(mapStateToProps)(withStyles(styles)({}));"
+    ]
+  },
+  "src/pages/*/styles.js": {
+    "type": "page-styles",
+    "alternate": "src/pages/{}/component.test.js",
+    "template": [
+      "export default theme => {open}",
+      "  return {open}",
+      "",
+      "    root: {open}",
+      "",
+      "    {close}",
+      "",
+      "  {close};",
+      "{close};"
+    ]
+  },
+  "src/pages/*/component.test.js": {
+    "type": "page-test",
+    "alternate": "src/pages/{}/index.js",
+    "template": [
+      "import React from 'react';",
+      "import ReactDOM from 'react-dom';",
+      "import {} from './component';",
+      "",
+      "it('renders without crashing', () => {open}",
+      "  const div = document.createElement('div');",
+      "  ReactDOM.render(<{} />, div);",
+      "  ReactDOM.unmountComponentAtNode(div);",
+      "{close});"
+    ]
+  },
+  "src/pages/*/index.js": {
+    "type": "pages-index",
+    "alternate": "src/pages/{}/component.js",
+    "template": [
+      "import component from './component';",
+      "export default component;"
+    ]
+  },
+
+  "src/themes/*.js": {
+    "type": "theme",
+    "template": [
+      "import {open} createMuiTheme {close} from '@material-ui/core/styles';",
+      "",
+      "const theme = createMuiTheme({open}",
+      "",
+      "  palette: {open}",
+      "  {close},",
+      "",
+      "  overrides: {open}",
+      "  {close},",
+      "",
+      "  props: {open}",
+      "  {close}",
+      "",
+      "{close});",
+      "",
+      "export default theme;"
+    ]
+  },
+
+  "src/store/reducers/*/reducer.js": {
+    "type": "reducer",
+    "alternate": "src/store/reducers/{}/reducer.test.js",
+    "template": [
+      "import Immutable from 'seamless-immutable';",
+      "",
+      "import {open} /* ACTION_TYPES */ {close} from '../../actionTypes'",
+      "",
+      "const initialState = Immutable({open}",
+      "{close});",
+      "",
+      "export default function reduce(state = initialState, action = {open}{close}) {open}",
+      "  switch (action.type) {open}",
+      "    default:",
+      "      return state;",
+      "  {close}",
+      "{close}"
+    ]
+  },
+  "src/store/reducers/*/reducer.test.js": {
+    "type": "reducer-test",
+    "alternate": "src/store/reducers/{}/index.js",
+    "template": [
+      "import reducer from './reducer';",
+      "",
+      "it('executes without errors', () => {open}",
+      "  reducer();",
+      "{close});",
+      "",
+      "it('returns unmodified state without action', () => {open}",
+      "  const state = { test: true };",
+      "  const result = reducer(state);",
+      "  expect(result).to.deep.equal(state);",
+      "{close});"
+    ]
+  },
+  "src/store/reducers/*/index.js": {
+    "type": "reducers-index",
+    "alternate": "src/store/reducers/{}/reducer.js",
+    "template": [
+      "import reducer from './reducer';",
+      "export default reducer;"
+    ]
+  },
+
+  "src/store/actions/*/action.js": {
+    "type": "action",
+    "alternate": "src/store/actions/{}/action.test.js",
+    "template": [
+      "import {open} /* ACTION_TYPE */ {close} from '../actionTypes';",
+      "",
+      "export default function {}() {open}",
+      "  return {open}",
+      "    // type: ACTION_TYPE",
+      "  {close}",
+      "{close}"
+    ]
+  },
+  "src/store/actions/*/action.test.js": {
+    "type": "action-test",
+    "alternate": "src/store/actions/{}/index.js",
+    "template": [
+      "import actionCreator from './action';",
+      "import {open} /* ACTION_TYPE */ {close} from '../../actionTypes';",
+      "",
+      "it('executes without errors', () => {open}",
+      "  actionCreator();",
+      "{close});",
+      "",
+      "it('creates an action of correct type', () => {open}",
+      "  const action = actionCreator();",
+      "  expect(action.type).to.equal(ACTION_TYPE);",
+      "{close});"
+    ]
+  },
+  "src/store/actions/*/index.js": {
+    "type": "actions-index",
+    "alternate": "src/store/actions/{}/action.js",
+    "template": [
+      "import action from './action';",
+      "export default action;"
+    ]
+  },
+
+  "src/store/sagas/*/saga.js": {
+    "type": "saga",
+    "alternate": "src/store/sagas/{}/saga.test.js",
+    "template": [
+      "import {open} call, put, takeLatest, takeEvery {close} from 'redux-saga/effects';",
+      "",
+      "import {open} /* REQUEST_ACTION */ {close} from '../actionTypes';",
+      "",
+      "import {open} /* successAction, errorAction */ {close} from '../actions';",
+      "",
+      "function* {}() {open}",
+      "  try {open}",
+      "    // const result = something",
+      "    // yield put(successAction(result));",
+      "  {close} catch (error) {open}",
+      "    // yield put(errorAction(error));",
+      "  {close}",
+      "{close}",
+      "",
+      "function* saga() {open}",
+      "  // yield takeEvery(REQUEST_ACTION, {});",
+      "{close}",
+      "",
+      "export default saga;"
+    ]
+  },
+  "src/store/sagas/*/saga.test.js": {
+    "type": "saga-test",
+    "alternate": "src/store/sagas/{}/index.js",
+    "template": []
+  },
+  "src/store/sagas/*/index.js": {
+    "type": "sagas-index",
+    "alternate": "src/store/sagas/{}/saga.js",
+    "template": [
+      "import saga from './saga';",
+      "export default saga;"
+    ]
+  },
+
+  "src/helpers/*/helper.js": {
+    "type": "helper",
+    "alternate": "src/helpers/{}/helper.test.js",
+    "template": [
+      "export default function {}() {open}",
+      "  return",
+      "{close}"
+    ]
+  },
+  "src/helpers/*/helper.test.js": {
+    "type": "helper-test",
+    "alternate": "src/helpers/{}/index.js",
+    "template": [
+      "import helperFunction from './helper';",
+      "",
+      "it('executes without errors', () => {open}",
+      "  helperFunction();",
+      "{close});"
+    ]
+  },
+  "src/helpers/*/index.js": {
+    "type": "helpers-index",
+    "alternate": "src/helpers/{}/helper.js",
+    "template": [
+      "import helper from './helper';",
+      "export default helper;"
+    ]
+  },
+
+  "src/services/*/service.js": {
+    "type": "service",
+    "alternate": "src/services/{}/service.test.js",
+    "template": [
+      "class {} {open}",
+      "",
+      "",
+      "",
+      "{close}",
+      "",
+      "export default new {}();"
+    ]
+  },
+  "src/services/*/service.test.js": {
+    "type": "service-test",
+    "alternate": "src/services/{}/index.js",
+    "template": [
+      "import service from './service';",
+      "",
+      "it('exists', () => {open}",
+      "  expect(service).to.not.be.empty;",
+      "{close});"
+    ]
+  },
+  "src/services/*/index.js": {
+    "type": "services-index",
+    "alternate": "src/services/{}/service.js",
+    "template": [
+      "import service from './service';",
+      "export default service;"
+    ]
+  },
+
+  "src/server/fixtures/*.js": {
+    "type": "fixture",
+    "template": [
+      "export default [",
+      "]"
+    ]
+  }
+}
