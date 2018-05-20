@@ -18,7 +18,9 @@ const config = {
   },
   isRatesMockEnabled: isTest,
 
-  defaultBaseCurrency: 'USD'
+  defaultBaseCurrency: 'USD',
+
+  defaultPageTitle: 'Converter'
 
 }
 

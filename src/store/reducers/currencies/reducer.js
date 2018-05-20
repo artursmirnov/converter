@@ -28,5 +28,5 @@ export default function reduce(state = initialState, action = {}) {
 }
 
 export function getFavouriteCurrencies(state) {
-  return _.pickBy(state.currencies, currency => currency.isFavourite);
+  return _.pickBy(state.currencies.currencies, currency => currency.isFavourite);
 }
