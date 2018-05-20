@@ -4,5 +4,5 @@ import { expect } from 'chai';
 import { LayoutStyled } from './component';
 
 it('renders without crashing', () => {
-  shallow(<LayoutStyled />);
+  shallow(<LayoutStyled pageTitle='Test Page' />);
 });
