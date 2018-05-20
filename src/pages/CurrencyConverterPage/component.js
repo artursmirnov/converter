@@ -3,22 +3,25 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 
-import { fetchCurrenciesRequested } from '../../store/actions';
+import { fetchCurrenciesRequested, fetchCurrencyRatesRequested } from '../../store/actions';
 
 import styles from './styles';
 
 export class CurrencyConverterPage extends Component {
 
   static propTypes = {
-    fetchCurrencies: PropTypes.func.isRequired
+    fetchCurrencies: PropTypes.func.isRequired,
+    fetchCurrencyRates: PropTypes.func.isRequired
   }
 
   static defaultProps = {
-    fetchCurrencies: () => {}
+    fetchCurrencies: () => {},
+    fetchCurrencyRates: () => {}
   }
 
   componentDidMount() {
     this.props.fetchCurrencies();
+    this.props.fetchCurrencyRates();
   }
 
   render() {
@@ -42,7 +45,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchCurrencies: () => dispatch(fetchCurrenciesRequested())
+    fetchCurrencies: () => dispatch(fetchCurrenciesRequested()),
+    fetchCurrencyRates: () => dispatch(fetchCurrencyRatesRequested())
   };
 }
 

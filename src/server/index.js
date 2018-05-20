@@ -3,6 +3,7 @@ import Pretender from 'fetch-pretender';
 import config from '../config/app';
 
 import currencies from './fixtures/currencies';
+import rates from './fixtures/rates';
 
 const REQUEST_DELAY = 1000;
 
@@ -23,8 +24,14 @@ function registerRoutes(server) {
     return response(currencies);
   }, REQUEST_DELAY);
 
-  if (config.isTest) {
-    // mocks for tests
+  server.get(`${config.ratesSource.baseUrl}/**`, server.passthrough)
+
+  if (config.isRatesMockEnabled) {
+
+    server.get(`${config.ratesSource.baseUrl}/**`, function() {
+      return response(rates);
+    });
+
   }
 
 }

@@ -10,7 +10,15 @@ const config = {
   env,
   isProduction,
   isDevelopment,
-  isTest
+  isTest,
+
+  ratesSource: {
+    baseUrl: 'https://v3.exchangerate-api.com/bulk',
+    apiKey: '051490d4d12871847e1e3da9'
+  },
+  isRatesMockEnabled: isTest,
+
+  defaultBaseCurrency: 'USD'
 
 }
 
@@ -22,7 +30,7 @@ if (isProduction) {
 
 if (isDevelopment) {
   Object.assign(config, {
-
+    isRatesMockEnabled: true
   });
 }
 

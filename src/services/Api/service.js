@@ -1,7 +1,21 @@
+import config from '../../config/app';
+
+const { ratesSource, defaultBaseCurrency } = config;
+const { baseUrl, apiKey } = ratesSource;
+
 class Api {
 
   fetchCurrencies = async () => {
     return await this.request({ url: '/api/currencies' });
+  }
+
+  fetchCurrencyRates = async (baseCurrency = defaultBaseCurrency) => {
+    const response = await fetch(`${baseUrl}/${apiKey}/${baseCurrency}`);
+    const data = await response.json();
+    if (data.result !== 'success') {
+      throw new Error('Rates fetch failed');
+    }
+    return data;
   }
 
   request = async ({ url, method = 'GET', data, headers = {} }) => {
