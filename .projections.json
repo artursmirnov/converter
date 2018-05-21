@@ -222,7 +222,8 @@
     "alternate": "src/store/reducers/{}/reducer.js",
     "template": [
       "import reducer from './reducer';",
-      "export default reducer;"
+      "export default reducer;",
+      "export * from './reducer';"
     ]
   },
 
@@ -234,7 +235,7 @@
       "",
       "export default function {}() {open}",
       "  return {open}",
-      "    // type: ACTION_TYPE",
+      "    //type: ACTION_TYPE",
       "  {close}",
       "{close}"
     ]
@@ -278,15 +279,15 @@
       "",
       "export function* {}() {open}",
       "  try {open}",
-      "    // const result = something",
-      "    // yield put(successAction(result));",
+      "    //const result = something",
+      "    //yield put(successAction(result));",
       "  {close} catch (error) {open}",
-      "    // yield put(errorAction(error));",
+      "    //yield put(errorAction(error));",
       "  {close}",
       "{close}",
       "",
       "export function* saga() {open}",
-      "  // yield takeEvery(REQUEST_ACTION, {});",
+      "  //yield takeEvery(REQUEST_ACTION, {});",
       "{close}",
       "",
       "export default saga;"
