@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 
 import Loading from '../../components/Loading';
+import CurrencyConverter from '../../components/CurrencyConverter';
+
+import config from '../../config/app';
 
 import { FETCH_CURRENCY_RATES_REQUESTED, FETCH_CURRENCIES_REQUESTED } from '../../store/actionTypes';
 
@@ -14,12 +17,15 @@ import {
 } from '../../store/actions';
 
 import * as loadingSelectors from '../../store/reducers/loading';
+import * as currenciesSelectors from '../../store/reducers/currencies';
 
 import styles from './styles';
 
 export class CurrencyConverterPage extends Component {
 
   static propTypes = {
+    currencies: PropTypes.objectOf(PropTypes.object).isRequired,
+    baseCurrency: PropTypes.string,
     isLoading: PropTypes.bool.isRequired,
     fetchCurrencies: PropTypes.func.isRequired,
     fetchCurrencyRates: PropTypes.func.isRequired,
@@ -27,6 +33,8 @@ export class CurrencyConverterPage extends Component {
   }
 
   static defaultProps = {
+    currencies: {},
+    baseCurrency: config.baseCurrency,
     isLoading: false,
     fetchCurrencies: () => {},
     fetchCurrencyRates: () => {},
@@ -40,14 +48,14 @@ export class CurrencyConverterPage extends Component {
   }
 
   render() {
-    const { classes, isLoading } = this.props;
+    const { classes, isLoading, currencies, baseCurrency } = this.props;
 
     return (
       <div className={ classes.root }>
         { isLoading ? (
           <Loading visible={ true } />
         ) : (
-          'CurrencyConverterPage'
+          <CurrencyConverter currencies={ currencies } baseCurrency={ baseCurrency } />
         )}
       </div>
     );
@@ -60,7 +68,9 @@ export const CurrencyConverterPageStyled = withStyles(styles)(CurrencyConverterP
 function mapStateToProps(state) {
   const isLoading = action => loadingSelectors.isLoading(state, action);
   return {
-    isLoading: isLoading(FETCH_CURRENCIES_REQUESTED) || isLoading(FETCH_CURRENCY_RATES_REQUESTED)
+    isLoading: isLoading(FETCH_CURRENCIES_REQUESTED) || isLoading(FETCH_CURRENCY_RATES_REQUESTED),
+    currencies: currenciesSelectors.getCurrencies(state),
+    baseCurrency: currenciesSelectors.getBaseCurrency(state)
   };
 }
 

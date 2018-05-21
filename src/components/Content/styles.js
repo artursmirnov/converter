@@ -2,8 +2,8 @@ export default theme => {
   return {
 
     root: {
-      marginTop: theme.spacing.unit,
-      marginBottom: theme.spacing.unit
+      marginTop: theme.spacing.unit * 2,
+      marginBottom: theme.spacing.unit * 2
     }
 
   };

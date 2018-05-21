@@ -30,3 +30,11 @@ export default function reduce(state = initialState, action = {}) {
 export function getFavouriteCurrencies(state) {
   return _.pickBy(state.currencies.currencies, currency => currency.isFavourite);
 }
+
+export function getCurrencies(state) {
+  return state.currencies.currencies;
+}
+
+export function getBaseCurrency(state) {
+  return state.currencies.baseCurrency;
+}
