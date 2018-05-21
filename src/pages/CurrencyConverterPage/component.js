@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 
+import Loading from '../../components/Loading';
+
 import { FETCH_CURRENCY_RATES_REQUESTED, FETCH_CURRENCIES_REQUESTED } from '../../store/actionTypes';
 
 import {
@@ -43,7 +45,7 @@ export class CurrencyConverterPage extends Component {
     return (
       <div className={ classes.root }>
         { isLoading ? (
-          'Loading'
+          <Loading visible={ true } />
         ) : (
           'CurrencyConverterPage'
         )}
