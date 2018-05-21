@@ -30,7 +30,7 @@ function registerRoutes(server) {
 
     server.get(`${config.ratesSource.baseUrl}/**`, function() {
       return response(rates);
-    });
+    }, REQUEST_DELAY);
 
   }
 

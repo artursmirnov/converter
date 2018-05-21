@@ -14,3 +14,10 @@ export const FETCH_CURRENCY_RATES_FAILED = 'FETCH_CURRENCY_RATES_FAILED';
  * Page
  */
 export const SET_PAGE_TITLE = 'SET_PAGE_TITLE';
+
+
+/**
+ * Loading
+ */
+export const ADD_LOADING = 'ADD_LOADING';
+export const REMOVE_LOADING = 'REMOVE_LOADING';

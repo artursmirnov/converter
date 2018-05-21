@@ -7,9 +7,15 @@ import {
   FETCH_CURRENCIES_SUCCEEDED
 } from '../../actionTypes';
 
-import { fetchCurrencyRatesSucceeded, fetchCurrencyRatesFailed } from '../../actions';
+import {
+  fetchCurrencyRatesSucceeded,
+  fetchCurrencyRatesFailed,
+  addLoading,
+  removeLoading
+} from '../../actions';
 
 export function* fetchCurrencyRates() {
+  yield put(addLoading(FETCH_CURRENCY_RATES_REQUESTED));
   try {
     const currenciesWithRates = {};
     const baseCurrency = yield select(state => state.currencies.baseCurrency);
@@ -24,6 +30,7 @@ export function* fetchCurrencyRates() {
   } catch (error) {
     yield put(fetchCurrencyRatesFailed(error));
   }
+  yield put(removeLoading(FETCH_CURRENCY_RATES_REQUESTED));
 }
 
 export function* saga() {

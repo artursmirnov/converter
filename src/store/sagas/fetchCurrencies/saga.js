@@ -5,10 +5,13 @@ import { FETCH_CURRENCIES_REQUESTED } from '../../actionTypes';
 
 import {
   fetchCurrenciesSucceeded,
-  fetchCurrenciesFailed
+  fetchCurrenciesFailed,
+  addLoading,
+  removeLoading
 } from '../../actions';
 
 export function* fetchCurrencies() {
+  yield put(addLoading(FETCH_CURRENCIES_REQUESTED));
   try {
     const currencies = yield call(Api.fetchCurrencies);
     const currenciesByCode = {};
@@ -25,6 +28,7 @@ export function* fetchCurrencies() {
   } catch (error) {
     yield put(fetchCurrenciesFailed(error));
   }
+  yield put(removeLoading(FETCH_CURRENCIES_REQUESTED));
 }
 
 export function* saga() {
