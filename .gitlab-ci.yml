@@ -1,0 +1,38 @@
+image: node:latest
+
+cache:
+  paths:
+    - node_modules/
+    - build/
+
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+    - yarn build
+  artifacts:
+    paths:
+      - build/*
+
+test:
+  stage: test
+  script:
+    - yarn install
+    - yarn test
+
+pages:
+  stage: deploy
+  script:
+    - yarn install
+    - yarn build
+    - rm -rf public
+    - mkdir public
+    - mv build/* public/
+  artifacts:
+    paths:
+      - public
+
