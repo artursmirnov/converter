@@ -10,6 +10,10 @@ export default theme => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center'
+    },
+
+    backdrop: {
+      backgroundColor: 'rgba(255, 255, 255, 0.5)',
     }
 
   };
