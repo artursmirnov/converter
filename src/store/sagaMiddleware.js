@@ -1,10 +1,10 @@
 import createSagaMiddleware from 'redux-saga';
-import _ from 'lodash';
+import { values } from 'lodash';
 
 const sagaMiddleware = createSagaMiddleware();
 
 export function run(sagas = {}) {
-  _.values(sagas).forEach(saga => sagaMiddleware.run(saga));
+  values(sagas).forEach(saga => sagaMiddleware.run(saga));
 }
 
 export default sagaMiddleware;

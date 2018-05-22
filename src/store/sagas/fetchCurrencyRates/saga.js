@@ -1,6 +1,6 @@
 import { call, put, takeLatest, take, select } from 'redux-saga/effects';
 import Api from '../../../services/Api';
-import _ from 'lodash';
+import { forOwn } from 'lodash';
 
 import {
   FETCH_CURRENCY_RATES_REQUESTED,
@@ -22,7 +22,7 @@ export function* fetchCurrencyRates() {
     const action = yield take(FETCH_CURRENCIES_SUCCEEDED);
     const currencies = action.currencies;
     const ratesResponse = yield call(Api.fetchCurrencyRates, baseCurrency);
-    _.forOwn(currencies, (currency, code) => {
+    forOwn(currencies, (currency, code) => {
       const rate = ratesResponse.rates[code];
       currenciesWithRates[code] = { ...currency, rate };
     });

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import _ from 'lodash';
+import { values } from 'lodash';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Route } from 'react-router-dom';
@@ -22,7 +22,7 @@ export class App extends Component {
         <CssBaseline />
         <div className={ classes.root }>
           <Layout pageTitle={ currentPageTitle }>
-            { _.values(routes).map((route, index) => (
+            { values(routes).map((route, index) => (
               <Route path={ route.path } exact={ route.exact } component={ route.component } key={ index } />
             ))}
           </Layout>

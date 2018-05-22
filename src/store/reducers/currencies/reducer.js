@@ -1,5 +1,5 @@
 import Immutable from 'seamless-immutable';
-import _ from 'lodash';
+import { pickBy } from 'lodash';
 import config from '../../../config/app';
 
 import {
@@ -28,7 +28,7 @@ export default function reduce(state = initialState, action = {}) {
 }
 
 export function getFavouriteCurrencies(state) {
-  return _.pickBy(state.currencies.currencies, currency => currency.isFavourite);
+  return pickBy(state.currencies.currencies, currency => currency.isFavourite);
 }
 
 export function getCurrencies(state) {
