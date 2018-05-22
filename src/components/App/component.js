@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { HashRouter as Router } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { values } from 'lodash';
 
@@ -21,11 +22,13 @@ export class App extends Component {
       <Fragment>
         <CssBaseline />
         <div className={ classes.root }>
-          <Layout pageTitle={ currentPageTitle }>
-            { values(routes).map((route, index) => (
-              <Route path={ route.path } exact={ route.exact } component={ route.component } key={ index } />
-            ))}
-          </Layout>
+          <Router>
+            <Layout pageTitle={ currentPageTitle }>
+              { values(routes).map((route, index) => (
+                <Route path={ route.path } exact={ route.exact } component={ route.component } key={ index } />
+              ))}
+            </Layout>
+          </Router>
         </div>
       </Fragment>
     );
