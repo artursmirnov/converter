@@ -8,6 +8,8 @@ import setPageTitle from './setPageTitle';
 import addLoading from './addLoading';
 import removeLoading from './removeLoading';
 import toggleCurrency from './toggleCurrency';
+import filterCurrencies from './filterCurrencies';
+import filterCurrenciesRequested from './filterCurrenciesRequested';
 
 export {
   fetchCurrenciesRequested,
@@ -19,5 +21,7 @@ export {
   setPageTitle,
   addLoading,
   removeLoading,
-  toggleCurrency
+  toggleCurrency,
+  filterCurrencies,
+  filterCurrenciesRequested
 };

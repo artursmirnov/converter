@@ -19,6 +19,18 @@ const theme = createMuiTheme({
 
     },
 
+    MuiDialog: {
+
+      root: {
+        alignItems: 'flex-start'
+      },
+
+      paper: {
+        width: '100%'
+      }
+
+    },
+
     MuiDialogActions: {
 
       root: {

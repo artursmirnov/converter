@@ -1,16 +1,18 @@
 import Immutable from 'seamless-immutable';
-import { pickBy, merge } from 'lodash';
+import { pickBy, merge, includes } from 'lodash';
 import config from '../../../config/app';
 
 import {
   FETCH_CURRENCIES_SUCCEEDED,
   FETCH_CURRENCY_RATES_SUCCEEDED,
-  TOGGLE_CURRENCY
+  TOGGLE_CURRENCY,
+  FILTER_CURRENCIES
 } from '../../actionTypes';
 
 const initialState = Immutable({
   currencies: {},
-  baseCurrency: config.defaultBaseCurrency
+  baseCurrency: config.defaultBaseCurrency,
+  filter: ''
 });
 
 export default function reduce(state = initialState, action = {}) {
@@ -33,6 +35,11 @@ export default function reduce(state = initialState, action = {}) {
         currencies: merge({}, state.currencies, { [currency.code]: { ...currency, isFavourite } })
       });
 
+    case FILTER_CURRENCIES:
+      return state.merge({
+        filter: action.term
+      })
+
     default:
       return state;
   }
@@ -46,6 +53,21 @@ export function getCurrencies(state) {
   return state.currencies.currencies;
 }
 
+export function getFilteredCurrencies(state) {
+  const { filter, currencies } = state.currencies;
+  const term = filter.toLowerCase();
+  return pickBy(currencies, ({ code, title, countries }) => {
+    const isCodeFit = includes(code.toLowerCase(), term);
+    const isTitleFit = includes(title.toLowerCase(), term);
+    const isCountriesFit = countries.filter(country => includes(country.toLowerCase(), term)).length > 0;
+    return isCodeFit || isTitleFit || isCountriesFit;
+  });
+}
+
 export function getBaseCurrency(state) {
   return state.currencies.baseCurrency;
+}
+
+export function getFilter(state) {
+  return state.currencies.filter;
 }

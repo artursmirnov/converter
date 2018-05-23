@@ -12,10 +12,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import CurrencySelector from '../../components/CurrencySelector';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
 import * as currenciesSelectors from '../../store/reducers/currencies';
 
-import { toggleCurrency } from '../../store/actions';
+import { toggleCurrency, filterCurrenciesRequested } from '../../store/actions';
 
 import styles from './styles';
 
@@ -23,13 +25,19 @@ export class CurrencySelectPage extends Component {
 
   static propTypes = {
     currencies: PropTypes.objectOf(PropTypes.object).isRequired,
-    toggleCurrency: PropTypes.func.isRequired
+    filter: PropTypes.string,
+    toggleCurrency: PropTypes.func.isRequired,
+    filterCurrencies: PropTypes.func.isRequired
   }
 
   static defaultProps = {
     currencies: {},
-    toggleCurrency: () => {}
+    filter: '',
+    toggleCurrency: () => {},
+    filterCurrencies: () => {}
   }
+
+  filterRef = null
 
   constructor() {
     super();
@@ -44,7 +52,7 @@ export class CurrencySelectPage extends Component {
   }
 
   render() {
-    const { classes, currencies, fullScreen } = this.props;
+    const { classes, currencies, fullScreen, filter } = this.props;
     const { isOpen } = this.state;
 
     return (
@@ -52,14 +60,30 @@ export class CurrencySelectPage extends Component {
         <Dialog
           open={ isOpen && !isEmpty(currencies) }
           fullScreen={ fullScreen }
+          onEntered={ this.handleOpen }
           onClose={ this.handleClose }
           onExited={ this.handleRedirect }
         >
-          <DialogTitle >Select Currencies</DialogTitle>
+          <DialogTitle disableTypography >
+            <Typography paragraph variant='title' >
+              Select Currencies
+            </Typography>
+            <TextField
+              autoFocus
+              fullWidth
+              label='Filter'
+              type='search'
+              placeholder='Currency title, code or country'
+              value={ filter }
+              inputRef={ ref => this.filterRef = ref }
+              onChange={ this.handleFilter }
+            />
+          </DialogTitle>
           <DialogContent className={ classes.dialogContent }>
             <CurrencySelector
               currencies={ currencies }
               onToggleCurrency={ this.handleToggleCurrency }
+              onFilter={ this.handleFilter }
             />
           </DialogContent>
           <DialogActions>
@@ -70,6 +94,10 @@ export class CurrencySelectPage extends Component {
         </Dialog>
       </div>
     );
+  }
+
+  handleOpen = () => {
+    this.filterRef.focus();
   }
 
   handleClose = () => {
@@ -84,20 +112,26 @@ export class CurrencySelectPage extends Component {
     this.props.toggleCurrency(currency);
   }
 
+  handleFilter = ({ target: { value } }) => {
+    this.props.filterCurrencies(value);
+  }
+
 }
 
 export const CurrencySelectPageStyled = withMobileDialog({ breakpoint: 'xs' })(withStyles(styles)(CurrencySelectPage));
 
 function mapStateToProps(state) {
-  const { getCurrencies } = currenciesSelectors;
+  const { getFilteredCurrencies, getFilter } = currenciesSelectors;
   return {
-    currencies: getCurrencies(state)
+    currencies: getFilteredCurrencies(state),
+    filter: getFilter(state)
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    toggleCurrency: currency => dispatch(toggleCurrency(currency))
+    toggleCurrency: currency => dispatch(toggleCurrency(currency)),
+    filterCurrencies: term => dispatch(filterCurrenciesRequested(term))
   };
 }
 
