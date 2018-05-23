@@ -11,18 +11,20 @@ import styles from './styles';
 export class Header extends Component {
 
   static propTypes = {
-    pageTitle: PropTypes.string.isRequired
+    pageTitle: PropTypes.string.isRequired,
+    showElevation: PropTypes.bool.isRequired
   }
 
   static defaultProps = {
+    showElevation: false
   }
 
   render() {
-    const { classes, pageTitle } = this.props;
+    const { classes, pageTitle, showElevation } = this.props;
 
     return (
       <div className={ classes.root }>
-        <AppBar color="primary" elevation={1} >
+        <AppBar color="primary" elevation={ showElevation ? 1 : 0 } >
           <Toolbar>
             <Typography variant="title" className={ classes.header } >
               { pageTitle }

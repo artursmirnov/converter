@@ -10,6 +10,7 @@ import removeLoading from './removeLoading';
 import toggleCurrency from './toggleCurrency';
 import filterCurrencies from './filterCurrencies';
 import filterCurrenciesRequested from './filterCurrenciesRequested';
+import setBaseCurrency from './setBaseCurrency';
 
 export {
   fetchCurrenciesRequested,
@@ -23,5 +24,6 @@ export {
   removeLoading,
   toggleCurrency,
   filterCurrencies,
-  filterCurrenciesRequested
+  filterCurrenciesRequested,
+  setBaseCurrency
 };

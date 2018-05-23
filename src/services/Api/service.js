@@ -1,7 +1,7 @@
 import config from '../../config/app';
 
-const { ratesSource, defaultBaseCurrency } = config;
-const { baseUrl, apiKey } = ratesSource;
+const { ratesSource } = config;
+const { baseUrl, apiKey, base } = ratesSource;
 
 class Api {
 
@@ -9,8 +9,8 @@ class Api {
     return await this.request({ url: '/api/currencies' });
   }
 
-  fetchCurrencyRates = async (baseCurrency = defaultBaseCurrency) => {
-    const response = await fetch(`${baseUrl}/${apiKey}/${baseCurrency}`);
+  fetchCurrencyRates = async () => {
+    const response = await fetch(`${baseUrl}/${apiKey}/${base}`);
     const data = await response.json();
     if (data.result !== 'success') {
       throw new Error('Rates fetch failed');

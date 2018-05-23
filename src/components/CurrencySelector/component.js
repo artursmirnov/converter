@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { values } from 'lodash';
+import currencyShape from '../../helpers/currencyShape';
 
 import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
@@ -18,26 +19,21 @@ import styles from './styles';
 export class CurrencySelector extends Component {
 
   static propTypes = {
-    currencies: PropTypes.objectOf(PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      code: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      isFavourite: PropTypes.bool.isRequired,
-      countries: PropTypes.arrayOf(PropTypes.string).isRequired,
-      rate: PropTypes.number
-    })).isRequired,
+    currencies: PropTypes.objectOf(currencyShape()).isRequired,
     isLoading: PropTypes.bool.isRequired,
+    baseCurrencyMode: PropTypes.bool,
     onToggleCurrency: PropTypes.func.isRequired
   }
 
   static defaultProps = {
     currencies: {},
     isLoading: false,
+    baseCurrencyMode: false,
     onToggleCurrency: () => {}
   }
 
   render() {
-    const { classes, currencies, isLoading } = this.props;
+    const { classes, currencies, isLoading, baseCurrencyMode } = this.props;
     const currenciesList = values(currencies);
 
     return (
@@ -57,12 +53,14 @@ export class CurrencySelector extends Component {
                   primary={ currency.title }
                   secondary={ currency.countries.join(', ') }
                 />
-                <ListItemSecondaryAction>
-                  <Checkbox
-                    onChange={ this.handleToggleCurrency(currency) }
-                    checked={ currency.isFavourite }
-                  />
-                </ListItemSecondaryAction>
+                { !baseCurrencyMode &&
+                  <ListItemSecondaryAction>
+                    <Checkbox
+                      onChange={ this.handleToggleCurrency(currency) }
+                      checked={ currency.isFavourite }
+                    />
+                  </ListItemSecondaryAction>
+                }
               </ListItem>
             ))}
           </List>

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { withRouter } from 'react-router-dom';
+import currencyShape from '../../helpers/currencyShape';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -19,16 +20,17 @@ import * as loadingSelectors from '../../store/reducers/loading';
 
 import { FETCH_CURRENCIES_REQUESTED } from '../../store/actionTypes';
 
-import { toggleCurrency, filterCurrenciesRequested } from '../../store/actions';
+import { toggleCurrency, setBaseCurrency, filterCurrenciesRequested } from '../../store/actions';
 
 import styles from './styles';
 
 export class CurrencySelectPage extends Component {
 
   static propTypes = {
-    currencies: PropTypes.objectOf(PropTypes.object).isRequired,
+    currencies: PropTypes.objectOf(currencyShape()).isRequired,
     filter: PropTypes.string,
     toggleCurrency: PropTypes.func.isRequired,
+    setBaseCurrency: PropTypes.func.isRequired,
     filterCurrencies: PropTypes.func.isRequired
   }
 
@@ -36,6 +38,7 @@ export class CurrencySelectPage extends Component {
     currencies: {},
     filter: '',
     toggleCurrency: () => {},
+    setBaseCurrency: () => {},
     filterCurrencies: () => {}
   }
 
@@ -45,17 +48,21 @@ export class CurrencySelectPage extends Component {
     super();
 
     this.state = {
-      isOpen: false
+      isOpen: false,
+      isBaseCurrencyMode: false
     }
   }
 
   componentDidMount() {
-    this.setState({ isOpen: true });
+    this.setState({
+      isOpen: true,
+      isBaseCurrencyMode: this.props.location.search === '?base'
+    });
   }
 
   render() {
     const { classes, currencies, fullScreen, filter, isLoadingCurrencies } = this.props;
-    const { isOpen } = this.state;
+    const { isOpen, isBaseCurrencyMode } = this.state;
 
     return (
       <div className={ classes.root }>
@@ -85,6 +92,7 @@ export class CurrencySelectPage extends Component {
             <CurrencySelector
               currencies={ currencies }
               isLoading={ isLoadingCurrencies }
+              baseCurrencyMode={ isBaseCurrencyMode }
               onToggleCurrency={ this.handleToggleCurrency }
               onFilter={ this.handleFilter }
             />
@@ -112,7 +120,14 @@ export class CurrencySelectPage extends Component {
   }
 
   handleToggleCurrency = currency => {
-    this.props.toggleCurrency(currency);
+    const { toggleCurrency, setBaseCurrency } = this.props;
+    const { isBaseCurrencyMode } = this.state;
+    if (isBaseCurrencyMode) {
+      setBaseCurrency(currency.code);
+      this.handleClose();
+    } else {
+      toggleCurrency(currency);
+    }
   }
 
   handleFilter = ({ target: { value } }) => {
@@ -136,6 +151,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     toggleCurrency: currency => dispatch(toggleCurrency(currency)),
+    setBaseCurrency: code => dispatch(setBaseCurrency(code)),
     filterCurrencies: term => dispatch(filterCurrenciesRequested(term))
   };
 }

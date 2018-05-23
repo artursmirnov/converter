@@ -14,11 +14,12 @@ const config = {
 
   ratesSource: {
     baseUrl: 'https://v3.exchangerate-api.com/bulk',
-    apiKey: '051490d4d12871847e1e3da9'
+    apiKey: '051490d4d12871847e1e3da9',
+    base: 'USD'
   },
   isRatesMockEnabled: isTest,
 
-  defaultBaseCurrency: 'USD',
+  defaultBaseCurrency: '',
 
   defaultPageTitle: 'Converter'
 

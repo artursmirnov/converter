@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { values } from 'lodash';
+import currencyShape from '../../helpers/currencyShape';
 
 import Typography from '@material-ui/core/Typography';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -16,14 +17,7 @@ import styles from './styles';
 export class CurrencyConverter extends Component {
 
   static propTypes = {
-    currencies: PropTypes.objectOf(PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      code: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      isFavourite: PropTypes.bool.isRequired,
-      countries: PropTypes.arrayOf(PropTypes.string).isRequired,
-      rate: PropTypes.number
-    })).isRequired,
+    currencies: PropTypes.objectOf(currencyShape()).isRequired,
     baseCurrency: PropTypes.string
   }
 

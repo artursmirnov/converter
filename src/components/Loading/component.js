@@ -10,19 +10,23 @@ import styles from './styles';
 export class Loading extends Component {
 
   static propTypes = {
-    visible: PropTypes.bool.isRequired
+    visible: PropTypes.bool.isRequired,
+    showBackdrop: PropTypes.bool
   }
 
   static defaultProps = {
-    visible: false
+    visible: false,
+    showBackdrop: true
   }
 
   render() {
-    const { classes, visible } = this.props;
+    const { classes, visible, showBackdrop } = this.props;
 
     return visible && (
       <div className={ classes.root }>
-        <Backdrop open={ visible } className={ classes.backdrop } />
+        { showBackdrop &&
+          <Backdrop open={ visible } className={ classes.backdrop } />
+        }
         <CircularProgress size={100} thickness={1} />
       </div>
     );

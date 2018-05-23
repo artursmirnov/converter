@@ -6,7 +6,8 @@ import {
   FETCH_CURRENCIES_SUCCEEDED,
   FETCH_CURRENCY_RATES_SUCCEEDED,
   TOGGLE_CURRENCY,
-  FILTER_CURRENCIES
+  FILTER_CURRENCIES,
+  SET_BASE_CURRENCY
 } from '../../actionTypes';
 
 const initialState = Immutable({
@@ -38,7 +39,12 @@ export default function reduce(state = initialState, action = {}) {
     case FILTER_CURRENCIES:
       return state.merge({
         filter: action.term
-      })
+      });
+
+    case SET_BASE_CURRENCY:
+      return state.merge({
+        baseCurrency: action.code
+      });
 
     default:
       return state;
@@ -53,6 +59,10 @@ export function getCurrencies(state) {
   return state.currencies.currencies;
 }
 
+export function getCurrency(state, code) {
+  return state.currencies.currencies[code];
+}
+
 export function getFilteredCurrencies(state) {
   const { filter, currencies } = state.currencies;
   const term = filter.toLowerCase();
@@ -65,7 +75,7 @@ export function getFilteredCurrencies(state) {
 }
 
 export function getBaseCurrency(state) {
-  return state.currencies.baseCurrency;
+  return getCurrency(state, state.currencies.baseCurrency);
 }
 
 export function getFilter(state) {

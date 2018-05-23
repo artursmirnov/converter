@@ -4,14 +4,15 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { isEmpty } from 'lodash';
 import { withRouter } from 'react-router-dom';
+import currencyShape from '../../helpers/currencyShape';
 
 import Loading from '../../components/Loading';
 import CurrencyConverter from '../../components/CurrencyConverter';
 import Message from '../../components/Message';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
+import ConverterGrid from '../../components/ConverterGrid';
+import BaseCurrency from '../../components/BaseCurrency';
 
-import config from '../../config/app';
 import { CurrencySelectRoute } from '../../config/routes';
 
 import { FETCH_CURRENCY_RATES_REQUESTED, FETCH_CURRENCIES_REQUESTED } from '../../store/actionTypes';
@@ -30,8 +31,8 @@ import styles from './styles';
 export class CurrencyConverterPage extends Component {
 
   static propTypes = {
-    favouriteCurrencies: PropTypes.objectOf(PropTypes.object).isRequired,
-    baseCurrency: PropTypes.string,
+    favouriteCurrencies: PropTypes.objectOf(currencyShape()).isRequired,
+    baseCurrency: currencyShape(),
     isLoading: PropTypes.bool.isRequired,
     fetchCurrencies: PropTypes.func.isRequired,
     fetchCurrencyRates: PropTypes.func.isRequired,
@@ -40,7 +41,6 @@ export class CurrencyConverterPage extends Component {
 
   static defaultProps = {
     favouriteCurrencies: {},
-    baseCurrency: config.baseCurrency,
     isLoading: false,
     fetchCurrencies: () => {},
     fetchCurrencyRates: () => {},
@@ -48,7 +48,7 @@ export class CurrencyConverterPage extends Component {
   }
 
   componentDidMount() {
-    this.props.setPageTitle(`Artur's Currency`);
+    this.props.setPageTitle('ASCurr');
     this.props.fetchCurrencies();
     this.props.fetchCurrencyRates();
   }
@@ -58,46 +58,52 @@ export class CurrencyConverterPage extends Component {
 
     return (
       <div className={ classes.root }>
-        <Grid container spacing={24} >
-          <Grid item sm ></Grid>
-          <Grid item xs={12} sm={9} lg={6} >
-            { isLoading ? (
-              <Loading visible={ true } />
-            ) : !isEmpty(favouriteCurrencies) ? (
-              <Fragment>
-                <CurrencyConverter
-                  currencies={ favouriteCurrencies }
-                  baseCurrency={ baseCurrency }
-                />
-                <div className={ classes.selectCurrenciesButton } >
-                  <Button
-                    color='primary'
-                    onClick={ this.handleSelectCurrenciesClick }
-                  >
-                    Select currencies
-                  </Button>
-                </div>
-              </Fragment>
-            ) : (
-              <Message text='No currencies selected.' >
+        { !isLoading &&
+          <BaseCurrency
+            currency={ baseCurrency }
+            onSelectBaseCurrency={ this.handleSelectBaseCurrency }
+          />
+        }
+        <ConverterGrid>
+          { isLoading ? (
+            <Loading visible={ true } showBackdrop={ false } />
+          ) : !isEmpty(favouriteCurrencies) ? (
+            <Fragment>
+              <CurrencyConverter
+                currencies={ favouriteCurrencies }
+                baseCurrency={ baseCurrency }
+              />
+              <div className={ classes.selectCurrenciesButton } >
                 <Button
-                  variant='raised'
                   color='primary'
                   onClick={ this.handleSelectCurrenciesClick }
                 >
                   Select currencies
                 </Button>
-              </Message>
-            )}
-          </Grid>
-          <Grid item sm ></Grid>
-        </Grid>
+              </div>
+            </Fragment>
+          ) : (
+            <Message text='No currencies selected.' >
+              <Button
+                variant='raised'
+                color='primary'
+                onClick={ this.handleSelectCurrenciesClick }
+              >
+                Select currencies
+              </Button>
+            </Message>
+          )}
+        </ConverterGrid>
       </div>
     );
   }
 
   handleSelectCurrenciesClick = () => {
     this.props.history.push(CurrencySelectRoute.path);
+  }
+
+  handleSelectBaseCurrency = () => {
+    this.props.history.push(`${CurrencySelectRoute.path}?base`)
   }
 
 }
