@@ -4,7 +4,7 @@ import { FILTER_CURRENCIES_REQUESTED } from '../../actionTypes';
 
 import { filterCurrencies as filterCurrenciesAction } from '../../actions';
 
-export const THROTTLE_TIMEOUT = 1000;
+export const THROTTLE_TIMEOUT = 100;
 
 export function* filterCurrencies({ term }) {
   yield put(filterCurrenciesAction(term));

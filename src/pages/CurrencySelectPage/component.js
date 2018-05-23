@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { withRouter } from 'react-router-dom';
-import { isEmpty } from 'lodash';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -16,6 +15,9 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
 import * as currenciesSelectors from '../../store/reducers/currencies';
+import * as loadingSelectors from '../../store/reducers/loading';
+
+import { FETCH_CURRENCIES_REQUESTED } from '../../store/actionTypes';
 
 import { toggleCurrency, filterCurrenciesRequested } from '../../store/actions';
 
@@ -52,13 +54,13 @@ export class CurrencySelectPage extends Component {
   }
 
   render() {
-    const { classes, currencies, fullScreen, filter } = this.props;
+    const { classes, currencies, fullScreen, filter, isLoadingCurrencies } = this.props;
     const { isOpen } = this.state;
 
     return (
       <div className={ classes.root }>
         <Dialog
-          open={ isOpen && !isEmpty(currencies) }
+          open={ isOpen }
           fullScreen={ fullScreen }
           onEntered={ this.handleOpen }
           onClose={ this.handleClose }
@@ -82,6 +84,7 @@ export class CurrencySelectPage extends Component {
           <DialogContent className={ classes.dialogContent }>
             <CurrencySelector
               currencies={ currencies }
+              isLoading={ isLoadingCurrencies }
               onToggleCurrency={ this.handleToggleCurrency }
               onFilter={ this.handleFilter }
             />
@@ -122,9 +125,11 @@ export const CurrencySelectPageStyled = withMobileDialog({ breakpoint: 'xs' })(w
 
 function mapStateToProps(state) {
   const { getFilteredCurrencies, getFilter } = currenciesSelectors;
+  const { isLoading } = loadingSelectors;
   return {
     currencies: getFilteredCurrencies(state),
-    filter: getFilter(state)
+    filter: getFilter(state),
+    isLoadingCurrencies: isLoading(state, FETCH_CURRENCIES_REQUESTED)
   };
 }
 

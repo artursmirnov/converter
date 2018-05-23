@@ -2,7 +2,8 @@ export default theme => {
   return {
 
     root: {
-
+      minHeight: theme.spacing.unit * 20,
+      position: 'relative'
     },
 
     avatar: {
@@ -12,6 +13,10 @@ export default theme => {
 
     filter: {
       margin: `0 ${theme.spacing.unit * 3}px`
+    },
+
+    nodata: {
+      margin: theme.spacing.unit * 3
     }
 
   };

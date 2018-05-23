@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { isEmpty } from 'lodash';
 
 import Typography from '@material-ui/core/Typography';
 
@@ -18,15 +19,18 @@ export class Message extends Component {
 
   render() {
     const { classes, text, children } = this.props;
+    const hasChildren = !isEmpty(children);
 
     return (
       <div className={ classes.root }>
-        <Typography variant='subheading' paragraph >
+        <Typography variant='subheading' paragraph={ hasChildren } >
           { text }
         </Typography>
-        <div className={ classes.childrenContainer } >
-          { children }
-        </div>
+        { hasChildren &&
+          <div className={ classes.childrenContainer } >
+            { children }
+          </div>
+        }
       </div>
     );
   }
