@@ -7,6 +7,7 @@ import fetchCurrencyRatesFailed from './fetchCurrencyRatesFailed';
 import setPageTitle from './setPageTitle';
 import addLoading from './addLoading';
 import removeLoading from './removeLoading';
+import toggleCurrency from './toggleCurrency';
 
 export {
   fetchCurrenciesRequested,
@@ -17,5 +18,6 @@ export {
   fetchCurrencyRatesFailed,
   setPageTitle,
   addLoading,
-  removeLoading
+  removeLoading,
+  toggleCurrency
 };

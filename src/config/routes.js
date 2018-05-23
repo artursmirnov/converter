@@ -2,6 +2,7 @@ import route from '../helpers/route';
 
 import IndexPage from '../pages/IndexPage';
 import CurrencyConverterPage from '../pages/CurrencyConverterPage';
+import CurrencySelectPage from '../pages/CurrencySelectPage';
 
 export const IndexRoute = route({
   path: '/',
@@ -11,6 +12,12 @@ export const IndexRoute = route({
 
 export const CurrencyConverterRoute = route({
   path: '/currency',
-  exact: true,
+  exact: false,
   component: CurrencyConverterPage
+})
+
+export const CurrencySelectRoute = route({
+  path: '/currency/select',
+  exact: true,
+  component: CurrencySelectPage
 })

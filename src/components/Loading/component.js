@@ -22,7 +22,7 @@ export class Loading extends Component {
 
     return visible && (
       <div className={ classes.root }>
-        <Backdrop open={ visible } />
+        <Backdrop open={ visible } className={ classes.backdrop } />
         <CircularProgress size={100} thickness={1} />
       </div>
     );

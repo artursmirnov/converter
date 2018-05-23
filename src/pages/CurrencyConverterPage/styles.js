@@ -3,6 +3,11 @@ export default theme => {
 
     root: {
 
+    },
+
+    selectCurrenciesButton: {
+      marginTop: theme.spacing.unit * 2,
+      textAlign: 'center'
     }
 
   };

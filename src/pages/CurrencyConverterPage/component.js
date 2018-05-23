@@ -1,12 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
+import { isEmpty } from 'lodash';
+import { withRouter } from 'react-router-dom';
 
 import Loading from '../../components/Loading';
 import CurrencyConverter from '../../components/CurrencyConverter';
+import Message from '../../components/Message';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 import config from '../../config/app';
+import { CurrencySelectRoute } from '../../config/routes';
 
 import { FETCH_CURRENCY_RATES_REQUESTED, FETCH_CURRENCIES_REQUESTED } from '../../store/actionTypes';
 
@@ -24,7 +30,7 @@ import styles from './styles';
 export class CurrencyConverterPage extends Component {
 
   static propTypes = {
-    currencies: PropTypes.objectOf(PropTypes.object).isRequired,
+    favouriteCurrencies: PropTypes.objectOf(PropTypes.object).isRequired,
     baseCurrency: PropTypes.string,
     isLoading: PropTypes.bool.isRequired,
     fetchCurrencies: PropTypes.func.isRequired,
@@ -33,7 +39,7 @@ export class CurrencyConverterPage extends Component {
   }
 
   static defaultProps = {
-    currencies: {},
+    favouriteCurrencies: {},
     baseCurrency: config.baseCurrency,
     isLoading: false,
     fetchCurrencies: () => {},
@@ -48,17 +54,50 @@ export class CurrencyConverterPage extends Component {
   }
 
   render() {
-    const { classes, isLoading, currencies, baseCurrency } = this.props;
+    const { classes, isLoading, favouriteCurrencies, baseCurrency } = this.props;
 
     return (
       <div className={ classes.root }>
-        { isLoading ? (
-          <Loading visible={ true } />
-        ) : (
-          <CurrencyConverter currencies={ currencies } baseCurrency={ baseCurrency } />
-        )}
+        <Grid container spacing={24} >
+          <Grid item sm ></Grid>
+          <Grid item xs={12} sm={9} lg={6} >
+            { isLoading ? (
+              <Loading visible={ true } />
+            ) : !isEmpty(favouriteCurrencies) ? (
+              <Fragment>
+                <CurrencyConverter
+                  currencies={ favouriteCurrencies }
+                  baseCurrency={ baseCurrency }
+                />
+                <div className={ classes.selectCurrenciesButton } >
+                  <Button
+                    color='primary'
+                    onClick={ this.handleSelectCurrenciesClick }
+                  >
+                    Select currencies
+                  </Button>
+                </div>
+              </Fragment>
+            ) : (
+              <Message text='No currencies selected.' >
+                <Button
+                  variant='raised'
+                  color='primary'
+                  onClick={ this.handleSelectCurrenciesClick }
+                >
+                  Select currencies
+                </Button>
+              </Message>
+            )}
+          </Grid>
+          <Grid item sm ></Grid>
+        </Grid>
       </div>
     );
+  }
+
+  handleSelectCurrenciesClick = () => {
+    this.props.history.push(CurrencySelectRoute.path);
   }
 
 }
@@ -67,10 +106,11 @@ export const CurrencyConverterPageStyled = withStyles(styles)(CurrencyConverterP
 
 function mapStateToProps(state) {
   const isLoading = action => loadingSelectors.isLoading(state, action);
+  const { getFavouriteCurrencies, getBaseCurrency } = currenciesSelectors;
   return {
     isLoading: isLoading(FETCH_CURRENCIES_REQUESTED) || isLoading(FETCH_CURRENCY_RATES_REQUESTED),
-    currencies: currenciesSelectors.getCurrencies(state),
-    baseCurrency: currenciesSelectors.getBaseCurrency(state)
+    favouriteCurrencies: getFavouriteCurrencies(state),
+    baseCurrency: getBaseCurrency(state)
   };
 }
 
@@ -84,4 +124,4 @@ function mapDispatchToProps(dispatch) {
 
 export const CurrencyConverterPageConnected = connect(mapStateToProps, mapDispatchToProps)(CurrencyConverterPageStyled);
 
-export default CurrencyConverterPageConnected;
+export default withRouter(CurrencyConverterPageConnected);

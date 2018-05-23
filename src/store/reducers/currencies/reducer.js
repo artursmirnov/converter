@@ -1,10 +1,11 @@
 import Immutable from 'seamless-immutable';
-import { pickBy } from 'lodash';
+import { pickBy, merge } from 'lodash';
 import config from '../../../config/app';
 
 import {
   FETCH_CURRENCIES_SUCCEEDED,
-  FETCH_CURRENCY_RATES_SUCCEEDED
+  FETCH_CURRENCY_RATES_SUCCEEDED,
+  TOGGLE_CURRENCY
 } from '../../actionTypes';
 
 const initialState = Immutable({
@@ -14,14 +15,24 @@ const initialState = Immutable({
 
 export default function reduce(state = initialState, action = {}) {
   switch (action.type) {
+
     case FETCH_CURRENCIES_SUCCEEDED:
       return state.merge({
         currencies: action.currencies
       });
+
     case FETCH_CURRENCY_RATES_SUCCEEDED:
       return state.merge({
         currencies: action.currencies
       });
+
+    case TOGGLE_CURRENCY:
+      const currency = state.currencies[action.currency.code];
+      const isFavourite = !currency.isFavourite;
+      return state.merge({
+        currencies: merge({}, state.currencies, { [currency.code]: { ...currency, isFavourite } })
+      });
+
     default:
       return state;
   }
