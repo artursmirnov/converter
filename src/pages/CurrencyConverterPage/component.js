@@ -48,7 +48,7 @@ export class CurrencyConverterPage extends Component {
   }
 
   componentDidMount() {
-    this.props.setPageTitle('Currency Converter');
+    this.props.setPageTitle(`Artur's Currency`);
     this.props.fetchCurrencies();
     this.props.fetchCurrencyRates();
   }

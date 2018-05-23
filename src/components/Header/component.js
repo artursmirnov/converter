@@ -22,9 +22,9 @@ export class Header extends Component {
 
     return (
       <div className={ classes.root }>
-        <AppBar color="default" elevation={1} >
+        <AppBar color="primary" elevation={1} >
           <Toolbar>
-            <Typography variant="title" color="inherit">
+            <Typography variant="title" className={ classes.header } >
               { pageTitle }
             </Typography>
           </Toolbar>
