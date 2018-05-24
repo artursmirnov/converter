@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
@@ -12,6 +12,8 @@ import Message from '../../components/Message';
 import Button from '@material-ui/core/Button';
 import ConverterGrid from '../../components/ConverterGrid';
 import BaseCurrency from '../../components/BaseCurrency';
+import BottomPanel from '../../components/BottomPanel';
+import ActionsGrid from '../../components/ActionsGrid';
 
 import { CurrencySelectRoute } from '../../config/routes';
 
@@ -55,6 +57,7 @@ export class CurrencyConverterPage extends Component {
 
   render() {
     const { classes, isLoading, favouriteCurrencies, baseCurrency } = this.props;
+    const hasFavouriteCurrencies = !isEmpty(favouriteCurrencies);
 
     return (
       <div className={ classes.root }>
@@ -67,33 +70,37 @@ export class CurrencyConverterPage extends Component {
         <ConverterGrid>
           { isLoading ? (
             <Loading visible={ true } showBackdrop={ false } />
-          ) : !isEmpty(favouriteCurrencies) ? (
-            <Fragment>
-              <CurrencyConverter
-                currencies={ favouriteCurrencies }
-                baseCurrency={ baseCurrency }
-              />
-              <div className={ classes.selectCurrenciesButton } >
-                <Button
-                  color='primary'
-                  onClick={ this.handleSelectCurrenciesClick }
-                >
-                  Select currencies
-                </Button>
-              </div>
-            </Fragment>
+          ) : hasFavouriteCurrencies ? (
+            <CurrencyConverter
+              currencies={ favouriteCurrencies }
+              baseCurrency={ baseCurrency }
+            />
           ) : (
-            <Message text='No currencies selected.' >
+            <Message text='No currencies selected.' />
+          )}
+        </ConverterGrid>
+        <BottomPanel>
+          <ConverterGrid>
+            <ActionsGrid>
               <Button
+                fullWidth
                 variant='raised'
                 color='primary'
                 onClick={ this.handleSelectCurrenciesClick }
               >
-                Select currencies
+                Select Currencies
               </Button>
-            </Message>
-          )}
-        </ConverterGrid>
+              { hasFavouriteCurrencies &&
+                <Button
+                  fullWidth
+                  color='primary'
+                >
+                  Clear List
+                </Button>
+              }
+            </ActionsGrid>
+          </ConverterGrid>
+        </BottomPanel>
       </div>
     );
   }

@@ -1,32 +1,34 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { isEmpty } from 'lodash';
 
 import Grid from '@material-ui/core/Grid';
 
 import styles from './styles';
 
-export class ConverterGrid extends Component {
+export class ActionsGrid extends Component {
 
   static propTypes = {
     spacing: PropTypes.number
   }
 
   static defaultProps = {
-    spacing: 0
+    spacing: 24
   }
 
   render() {
-    const { classes, children, spacing } = this.props;
+    const { classes, spacing, children } = this.props;
 
     return (
       <div className={ classes.root }>
         <Grid container spacing={ spacing } >
-          <Grid item sm ></Grid>
-          <Grid item xs={12} sm={9} lg={6} >
-            { children }
-          </Grid>
-          <Grid item sm ></Grid>
+          { children.map(( child, index ) => (
+            !isEmpty(child) &&
+            <Grid item xs key={ index } >
+              { child }
+            </Grid>
+          ))}
         </Grid>
       </div>
     );
@@ -34,6 +36,6 @@ export class ConverterGrid extends Component {
 
 }
 
-export const ConverterGridStyled = withStyles(styles)(ConverterGrid);
+export const ActionsGridStyled = withStyles(styles)(ActionsGrid);
 
-export default ConverterGridStyled;
+export default ActionsGridStyled;
