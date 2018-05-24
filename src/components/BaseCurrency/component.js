@@ -55,7 +55,8 @@ export class BaseCurrency extends Component {
                           inputComponent: AmountNumberFormat,
                           inputProps: {
                             className: classes.amountInput,
-                            onBlur: this.handleAmountBlur
+                            onBlur: this.handleAmountBlur,
+                            onFocus: this.handleAmountFocus
                           }
                         }}
                         InputLabelProps={{
@@ -90,6 +91,10 @@ export class BaseCurrency extends Component {
 
   handleAmountBlur = ({ target: { value } }) => {
     if (value === '') this.props.onAmountChange(config.defaultAmount);
+  }
+
+  handleAmountFocus = ({ target }) => {
+    target.select();
   }
 
 }
