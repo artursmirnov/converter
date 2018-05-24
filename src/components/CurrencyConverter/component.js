@@ -10,19 +10,16 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import { ChevronDown } from 'mdi-material-ui';
 
-import config from '../../config/app';
-
 import styles from './styles';
 
 export class CurrencyConverter extends Component {
 
   static propTypes = {
     currencies: PropTypes.objectOf(currencyShape()).isRequired,
-    baseCurrency: PropTypes.string
+    baseCurrency: currencyShape()
   }
 
   static defaultProps = {
-    baseCurrency: config.baseCurrency
   }
 
   render() {
