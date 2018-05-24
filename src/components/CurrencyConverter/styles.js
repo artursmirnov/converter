@@ -5,26 +5,13 @@ export default theme => {
       width: '100%'
     },
 
-    panelSummary: {
-      justifyContent: 'space-between'
-    },
-
-    code: {
-      fontSize: theme.typography.pxToRem(15),
-      flexBasis: '10%',
-      flexShrink: 0
-    },
-
-    title: {
-      flexBasis: '100%',
-      textAlign: 'left',
-      fontSize: theme.typography.pxToRem(15),
-      color: theme.palette.text.secondary
-    },
-
     rate: {
-      fontSize: theme.typography.pxToRem(15),
-      flexBasis: '20%'
+      fontSize: '1.1rem',
+      marginRight: theme.spacing.unit * 2
+    },
+
+    paper: {
+      marginBottom: theme.spacing.unit
     }
 
   };

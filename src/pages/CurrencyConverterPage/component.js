@@ -23,7 +23,9 @@ import {
   fetchCurrenciesRequested,
   fetchCurrencyRatesRequested,
   setPageTitle,
-  clearFavourites
+  clearFavourites,
+  setBaseCurrency,
+  toggleCurrency
 } from '../../store/actions';
 
 import * as loadingSelectors from '../../store/reducers/loading';
@@ -40,7 +42,9 @@ export class CurrencyConverterPage extends Component {
     fetchCurrencies: PropTypes.func,
     fetchCurrencyRates: PropTypes.func,
     setPageTitle: PropTypes.func,
-    clearFavourites: PropTypes.func
+    clearFavourites: PropTypes.func,
+    setBaseCurrency: PropTypes.func,
+    removeFromList: PropTypes.func
   }
 
   static defaultProps = {
@@ -49,7 +53,9 @@ export class CurrencyConverterPage extends Component {
     fetchCurrencies: () => {},
     fetchCurrencyRates: () => {},
     setPageTitle: () => {},
-    clearFavourites: () => {}
+    clearFavourites: () => {},
+    setBaseCurrency: () => {},
+    removeFromList: () => {}
   }
 
   componentDidMount() {
@@ -77,6 +83,8 @@ export class CurrencyConverterPage extends Component {
             <CurrencyConverter
               currencies={ favouriteCurrencies }
               baseCurrency={ baseCurrency }
+              onSetBaseCurrency={ this.handleSetBaseCurrency }
+              onRemoveFromList={ this.handleRemoveFromList }
             />
           ) : (
             <Message text='No currencies selected.' />
@@ -121,6 +129,14 @@ export class CurrencyConverterPage extends Component {
     this.props.clearFavourites();
   }
 
+  handleSetBaseCurrency = currency => {
+    this.props.setBaseCurrency(currency.code);
+  }
+
+  handleRemoveFromList = currency => {
+    this.props.removeFromList(currency);
+  }
+
 }
 
 export const CurrencyConverterPageStyled = withStyles(styles)(CurrencyConverterPage);
@@ -140,7 +156,9 @@ function mapDispatchToProps(dispatch) {
     fetchCurrencies: () => dispatch(fetchCurrenciesRequested()),
     fetchCurrencyRates: () => dispatch(fetchCurrencyRatesRequested()),
     setPageTitle: (title) => dispatch(setPageTitle(title)),
-    clearFavourites: () => dispatch(clearFavourites())
+    clearFavourites: () => dispatch(clearFavourites()),
+    setBaseCurrency: code => dispatch(setBaseCurrency(code)),
+    removeFromList: currency => dispatch(toggleCurrency(currency))
   };
 }
 
