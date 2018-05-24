@@ -22,7 +22,8 @@ import { FETCH_CURRENCY_RATES_REQUESTED, FETCH_CURRENCIES_REQUESTED } from '../.
 import {
   fetchCurrenciesRequested,
   fetchCurrencyRatesRequested,
-  setPageTitle
+  setPageTitle,
+  clearFavourites
 } from '../../store/actions';
 
 import * as loadingSelectors from '../../store/reducers/loading';
@@ -33,12 +34,13 @@ import styles from './styles';
 export class CurrencyConverterPage extends Component {
 
   static propTypes = {
-    favouriteCurrencies: PropTypes.objectOf(currencyShape()).isRequired,
+    favouriteCurrencies: PropTypes.objectOf(currencyShape()),
     baseCurrency: currencyShape(),
-    isLoading: PropTypes.bool.isRequired,
-    fetchCurrencies: PropTypes.func.isRequired,
-    fetchCurrencyRates: PropTypes.func.isRequired,
-    setPageTitle: PropTypes.func.isRequired
+    isLoading: PropTypes.bool,
+    fetchCurrencies: PropTypes.func,
+    fetchCurrencyRates: PropTypes.func,
+    setPageTitle: PropTypes.func,
+    clearFavourites: PropTypes.func
   }
 
   static defaultProps = {
@@ -46,7 +48,8 @@ export class CurrencyConverterPage extends Component {
     isLoading: false,
     fetchCurrencies: () => {},
     fetchCurrencyRates: () => {},
-    setPageTitle: () => {}
+    setPageTitle: () => {},
+    clearFavourites: () => {}
   }
 
   componentDidMount() {
@@ -94,6 +97,7 @@ export class CurrencyConverterPage extends Component {
                 <Button
                   fullWidth
                   color='primary'
+                  onClick={ this.handleClearList }
                 >
                   Clear List
                 </Button>
@@ -111,6 +115,10 @@ export class CurrencyConverterPage extends Component {
 
   handleSelectBaseCurrency = () => {
     this.props.history.push(`${CurrencySelectRoute.path}?base`)
+  }
+
+  handleClearList = () => {
+    this.props.clearFavourites();
   }
 
 }
@@ -131,7 +139,8 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchCurrencies: () => dispatch(fetchCurrenciesRequested()),
     fetchCurrencyRates: () => dispatch(fetchCurrencyRatesRequested()),
-    setPageTitle: (title) => { dispatch(setPageTitle(title)) }
+    setPageTitle: (title) => dispatch(setPageTitle(title)),
+    clearFavourites: () => dispatch(clearFavourites())
   };
 }
 

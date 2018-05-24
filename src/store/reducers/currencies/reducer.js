@@ -1,5 +1,5 @@
 import Immutable from 'seamless-immutable';
-import { pickBy, merge, includes } from 'lodash';
+import { pickBy, merge, includes, mapValues } from 'lodash';
 import config from '../../../config/app';
 
 import {
@@ -7,7 +7,8 @@ import {
   FETCH_CURRENCY_RATES_SUCCEEDED,
   TOGGLE_CURRENCY,
   FILTER_CURRENCIES,
-  SET_BASE_CURRENCY
+  SET_BASE_CURRENCY,
+  CLEAR_FAVOURITES
 } from '../../actionTypes';
 
 const initialState = Immutable({
@@ -44,6 +45,13 @@ export default function reduce(state = initialState, action = {}) {
     case SET_BASE_CURRENCY:
       return state.merge({
         baseCurrency: action.code
+      });
+
+    case CLEAR_FAVOURITES:
+      return state.merge({
+        currencies: mapValues(state.currencies, currency => {
+          return { ...currency, isFavourite: false }
+        })
       });
 
     default:
