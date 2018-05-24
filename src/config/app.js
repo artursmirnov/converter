@@ -33,7 +33,7 @@ if (isProduction) {
 
 if (isDevelopment) {
   Object.assign(config, {
-    isRatesMockEnabled: true
+    //isRatesMockEnabled: true
   });
 }
 

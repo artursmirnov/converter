@@ -16,6 +16,21 @@ export default theme => {
 
     list: {
       padding: 0
+    },
+
+    amount: {
+      width: theme.spacing.unit * 12,
+      marginRight: theme.spacing.unit * 3
+    },
+
+    amountInput: {
+      textAlign: 'right'
+    },
+
+    amountLabel: {
+      right: 0,
+      left: 'initial',
+      transformOrigin: 'top right'
     }
 
   };

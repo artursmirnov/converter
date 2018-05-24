@@ -12,6 +12,7 @@ import filterCurrencies from './filterCurrencies';
 import filterCurrenciesRequested from './filterCurrenciesRequested';
 import setBaseCurrency from './setBaseCurrency';
 import clearFavourites from './clearFavourites';
+import setAmount from './setAmount';
 
 export {
   fetchCurrenciesRequested,
@@ -27,5 +28,6 @@ export {
   filterCurrencies,
   filterCurrenciesRequested,
   setBaseCurrency,
-  clearFavourites
+  clearFavourites,
+  setAmount
 };

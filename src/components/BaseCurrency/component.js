@@ -8,7 +8,9 @@ import ConverterGrid from '../../components/ConverterGrid';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import CurrencyFlag from '../CurrencyFlag';
+import TextField from '@material-ui/core/TextField';
 
 import styles from './styles';
 
@@ -16,15 +18,19 @@ export class BaseCurrency extends Component {
 
   static propTypes = {
     currency: currencyShape(),
-    onSelectBaseCurrency: PropTypes.func
+    amount: PropTypes.number,
+    onSelectBaseCurrency: PropTypes.func,
+    onAmountChange: PropTypes.func
   }
 
   static defaultProps = {
-    onSelectBaseCurrency: () => {}
+    amount: 1,
+    onSelectBaseCurrency: () => {},
+    onAmountChange: () => {}
   }
 
   render() {
-    const { classes, currency } = this.props;
+    const { classes, currency, amount } = this.props;
 
     return (
       <div className={ classes.root }>
@@ -36,6 +42,22 @@ export class BaseCurrency extends Component {
                   <ListItem button onClick={ this.handleSelectBaseCurrencyClick } >
                     <CurrencyFlag countryCode={ currency.countryCode } />
                     <ListItemText primary={ currency.code } secondary={ currency.title } />
+                    <ListItemSecondaryAction>
+                      <TextField
+                        autoFocus
+                        label='Amount'
+                        value={ amount }
+                        className={ classes.amount }
+                        inputProps={{
+                          className: classes.amountInput
+                        }}
+                        InputLabelProps={{
+                          shrink: true,
+                          className: classes.amountLabel
+                        }}
+                        onChange={ this.handleAmountChange }
+                      />
+                    </ListItemSecondaryAction>
                   </ListItem>
                 ) : (
                   <ListItem button onClick={ this.handleSelectBaseCurrencyClick } >
@@ -53,6 +75,10 @@ export class BaseCurrency extends Component {
 
   handleSelectBaseCurrencyClick = () => {
     this.props.onSelectBaseCurrency();
+  }
+
+  handleAmountChange = ({ target: { value } }) => {
+    this.props.onAmountChange(value);
   }
 
 }

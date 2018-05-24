@@ -25,7 +25,8 @@ import {
   setPageTitle,
   clearFavourites,
   setBaseCurrency,
-  toggleCurrency
+  toggleCurrency,
+  setAmount
 } from '../../store/actions';
 
 import * as loadingSelectors from '../../store/reducers/loading';
@@ -38,24 +39,28 @@ export class CurrencyConverterPage extends Component {
   static propTypes = {
     favouriteCurrencies: PropTypes.objectOf(currencyShape()),
     baseCurrency: currencyShape(),
+    amount: PropTypes.number,
     isLoading: PropTypes.bool,
     fetchCurrencies: PropTypes.func,
     fetchCurrencyRates: PropTypes.func,
     setPageTitle: PropTypes.func,
     clearFavourites: PropTypes.func,
     setBaseCurrency: PropTypes.func,
-    removeFromList: PropTypes.func
+    removeFromList: PropTypes.func,
+    setAmount: PropTypes.func
   }
 
   static defaultProps = {
     favouriteCurrencies: {},
     isLoading: false,
+    amount: 1,
     fetchCurrencies: () => {},
     fetchCurrencyRates: () => {},
     setPageTitle: () => {},
     clearFavourites: () => {},
     setBaseCurrency: () => {},
-    removeFromList: () => {}
+    removeFromList: () => {},
+    setAmount: () => {}
   }
 
   componentDidMount() {
@@ -65,7 +70,7 @@ export class CurrencyConverterPage extends Component {
   }
 
   render() {
-    const { classes, isLoading, favouriteCurrencies, baseCurrency } = this.props;
+    const { classes, isLoading, favouriteCurrencies, baseCurrency, amount } = this.props;
     const hasFavouriteCurrencies = !isEmpty(favouriteCurrencies);
 
     return (
@@ -73,7 +78,9 @@ export class CurrencyConverterPage extends Component {
         { !isLoading &&
           <BaseCurrency
             currency={ baseCurrency }
+            amount={ amount }
             onSelectBaseCurrency={ this.handleSelectBaseCurrency }
+            onAmountChange={ this.handleAmountChange }
           />
         }
         <ConverterGrid>
@@ -82,6 +89,7 @@ export class CurrencyConverterPage extends Component {
           ) : hasFavouriteCurrencies ? (
             <CurrencyConverter
               currencies={ favouriteCurrencies }
+              amount={ amount }
               baseCurrency={ baseCurrency }
               onSetBaseCurrency={ this.handleSetBaseCurrency }
               onRemoveFromList={ this.handleRemoveFromList }
@@ -137,17 +145,22 @@ export class CurrencyConverterPage extends Component {
     this.props.removeFromList(currency);
   }
 
+  handleAmountChange = (amount) => {
+    this.props.setAmount(amount);
+  }
+
 }
 
 export const CurrencyConverterPageStyled = withStyles(styles)(CurrencyConverterPage);
 
 function mapStateToProps(state) {
   const isLoading = action => loadingSelectors.isLoading(state, action);
-  const { getFavouriteCurrencies, getBaseCurrency } = currenciesSelectors;
+  const { getFavouriteCurrencies, getBaseCurrency, getAmount } = currenciesSelectors;
   return {
     isLoading: isLoading(FETCH_CURRENCIES_REQUESTED) || isLoading(FETCH_CURRENCY_RATES_REQUESTED),
     favouriteCurrencies: getFavouriteCurrencies(state),
-    baseCurrency: getBaseCurrency(state)
+    baseCurrency: getBaseCurrency(state),
+    amount: getAmount(state)
   };
 }
 
@@ -158,7 +171,8 @@ function mapDispatchToProps(dispatch) {
     setPageTitle: (title) => dispatch(setPageTitle(title)),
     clearFavourites: () => dispatch(clearFavourites()),
     setBaseCurrency: code => dispatch(setBaseCurrency(code)),
-    removeFromList: currency => dispatch(toggleCurrency(currency))
+    removeFromList: currency => dispatch(toggleCurrency(currency)),
+    setAmount: amount => dispatch(setAmount(amount))
   };
 }
 

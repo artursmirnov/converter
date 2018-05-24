@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { values } from 'lodash';
+import { values, isEmpty } from 'lodash';
 import currencyShape from '../../helpers/currencyShape';
 
 import Typography from '@material-ui/core/Typography';
@@ -17,6 +17,8 @@ import { DotsVertical } from 'mdi-material-ui';
 import CurrencyFlag from '../CurrencyFlag';
 
 import styles from './styles';
+
+const numberFormatter = new Intl.NumberFormat(navigator.language || navigator.userLanguage, { maximumFractionDigits: 2 });
 
 export class CurrencyConverter extends Component {
 
@@ -38,13 +40,14 @@ export class CurrencyConverter extends Component {
   }
 
   render() {
-    const { classes, currencies } = this.props;
+    const { classes, currencies, baseCurrency = {} } = this.props;
     const { menuAnchor } = this.state;
+    const isBaseCurrencySet = !isEmpty(baseCurrency);
 
     return (
       <div className={ classes.root }>
         <List >
-          { values(currencies).map(currency => (
+          { values(currencies).map(currency => currency.code !== baseCurrency.code && (
             <Paper key={ currency.id } className={ classes.paper } elevation={0} >
               <ListItem >
                 <CurrencyFlag countryCode={ currency.countryCode } />
@@ -53,9 +56,11 @@ export class CurrencyConverter extends Component {
                   secondary={ currency.title }
                 />
                 <ListItemSecondaryAction>
-                  <Typography className={ classes.rate } variant='title' >
-                    { currency.rate ? currency.rate.toFixed(2) : '--.--' }
-                  </Typography>
+                  { isBaseCurrencySet &&
+                    <Typography className={ classes.rate } variant='title' >
+                      { numberFormatter.format(currency.calculatedRate) }
+                    </Typography>
+                  }
                   <IconButton onClick={ this.handleMenuOpenClick(currency) } >
                     <DotsVertical />
                   </IconButton>

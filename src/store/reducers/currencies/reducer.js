@@ -8,12 +8,14 @@ import {
   TOGGLE_CURRENCY,
   FILTER_CURRENCIES,
   SET_BASE_CURRENCY,
-  CLEAR_FAVOURITES
+  CLEAR_FAVOURITES,
+  SET_AMOUNT
 } from '../../actionTypes';
 
 const initialState = Immutable({
   currencies: {},
   baseCurrency: config.defaultBaseCurrency,
+  amount: 1,
   filter: ''
 });
 
@@ -54,13 +56,25 @@ export default function reduce(state = initialState, action = {}) {
         })
       });
 
+    case SET_AMOUNT:
+      return state.merge({
+        amount: parseFloat(action.amount) || 1
+      });
+
     default:
       return state;
   }
 }
 
 export function getFavouriteCurrencies(state) {
-  return pickBy(state.currencies.currencies, currency => currency.isFavourite);
+  const favouriteCurrencies = pickBy(state.currencies.currencies, currency => currency.isFavourite);
+  return mapValues(favouriteCurrencies, currency => {
+    const baseCurrency = getBaseCurrency(state) || {};
+    const baseCurrencyRate = baseCurrency.rate || 0;
+    const amount = getAmount(state) || 0;
+    const calculatedRate = currency.rate / baseCurrencyRate * amount || 0;
+    return { ...currency, calculatedRate };
+  });
 }
 
 export function getCurrencies(state) {
@@ -84,6 +98,10 @@ export function getFilteredCurrencies(state) {
 
 export function getBaseCurrency(state) {
   return getCurrency(state, state.currencies.baseCurrency);
+}
+
+export function getAmount(state) {
+  return state.currencies.amount;
 }
 
 export function getFilter(state) {
