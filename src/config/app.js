@@ -21,6 +21,8 @@ const config = {
 
   defaultBaseCurrency: '',
 
+  defaultAmount: '1',
+
   defaultPageTitle: 'Converter'
 
 }

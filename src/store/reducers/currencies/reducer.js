@@ -15,7 +15,7 @@ import {
 const initialState = Immutable({
   currencies: {},
   baseCurrency: config.defaultBaseCurrency,
-  amount: 1,
+  amount: config.defaultAmount,
   filter: ''
 });
 
@@ -58,7 +58,7 @@ export default function reduce(state = initialState, action = {}) {
 
     case SET_AMOUNT:
       return state.merge({
-        amount: parseFloat(action.amount) || 1
+        amount: action.amount
       });
 
     default:
@@ -71,7 +71,7 @@ export function getFavouriteCurrencies(state) {
   return mapValues(favouriteCurrencies, currency => {
     const baseCurrency = getBaseCurrency(state) || {};
     const baseCurrencyRate = baseCurrency.rate || 0;
-    const amount = getAmount(state) || 0;
+    const amount = parseFloat(getAmount(state)) || 0;
     const calculatedRate = currency.rate / baseCurrencyRate * amount || 0;
     return { ...currency, calculatedRate };
   });

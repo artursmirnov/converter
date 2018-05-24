@@ -12,19 +12,21 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import CurrencyFlag from '../CurrencyFlag';
 import TextField from '@material-ui/core/TextField';
 
+import config from '../../config/app';
+
 import styles from './styles';
 
 export class BaseCurrency extends Component {
 
   static propTypes = {
     currency: currencyShape(),
-    amount: PropTypes.number,
+    amount: PropTypes.string,
     onSelectBaseCurrency: PropTypes.func,
     onAmountChange: PropTypes.func
   }
 
   static defaultProps = {
-    amount: 1,
+    amount: config.defaultAmount,
     onSelectBaseCurrency: () => {},
     onAmountChange: () => {}
   }
@@ -49,7 +51,8 @@ export class BaseCurrency extends Component {
                         value={ amount }
                         className={ classes.amount }
                         inputProps={{
-                          className: classes.amountInput
+                          className: classes.amountInput,
+                          onBlur: this.handleAmountBlur
                         }}
                         InputLabelProps={{
                           shrink: true,
@@ -79,6 +82,10 @@ export class BaseCurrency extends Component {
 
   handleAmountChange = ({ target: { value } }) => {
     this.props.onAmountChange(value);
+  }
+
+  handleAmountBlur = ({ target: { value } }) => {
+    if (value === '') this.props.onAmountChange(config.defaultAmount);
   }
 
 }

@@ -32,6 +32,8 @@ import {
 import * as loadingSelectors from '../../store/reducers/loading';
 import * as currenciesSelectors from '../../store/reducers/currencies';
 
+import config from '../../config/app';
+
 import styles from './styles';
 
 export class CurrencyConverterPage extends Component {
@@ -39,7 +41,7 @@ export class CurrencyConverterPage extends Component {
   static propTypes = {
     favouriteCurrencies: PropTypes.objectOf(currencyShape()),
     baseCurrency: currencyShape(),
-    amount: PropTypes.number,
+    amount: PropTypes.string,
     isLoading: PropTypes.bool,
     fetchCurrencies: PropTypes.func,
     fetchCurrencyRates: PropTypes.func,
@@ -53,7 +55,7 @@ export class CurrencyConverterPage extends Component {
   static defaultProps = {
     favouriteCurrencies: {},
     isLoading: false,
-    amount: 1,
+    amount: config.defaultAmount,
     fetchCurrencies: () => {},
     fetchCurrencyRates: () => {},
     setPageTitle: () => {},
