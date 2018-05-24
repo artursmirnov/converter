@@ -9,12 +9,12 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { DotsVertical } from 'mdi-material-ui';
+import CurrencyFlag from '../CurrencyFlag';
 
 import styles from './styles';
 
@@ -47,7 +47,7 @@ export class CurrencyConverter extends Component {
           { values(currencies).map(currency => (
             <Paper key={ currency.id } className={ classes.paper } elevation={0} >
               <ListItem >
-                <Avatar>{ currency.code }</Avatar>
+                <CurrencyFlag countryCode={ currency.countryCode } />
                 <ListItemText
                   primary={ currency.code }
                   secondary={ currency.title }
