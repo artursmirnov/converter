@@ -143,7 +143,7 @@ export default [
     title: 'Swiss Franc',
     country: 'Switzerland',
     countryCode: 'CH',
-    isFavourite: false
+    isFavourite: true
   },
   {
     id: faker.random.uuid(),
@@ -375,7 +375,7 @@ export default [
     title: 'Pound Sterling',
     country: 'United Kingdom',
     countryCode: 'GB',
-    isFavourite: false
+    isFavourite: true
   },
   {
     id: faker.random.uuid(),
@@ -503,7 +503,7 @@ export default [
     title: 'Japanese Yen',
     country: 'Japan',
     countryCode: 'JP',
-    isFavourite: false
+    isFavourite: true
   },
   {
     id: faker.random.uuid(),
@@ -855,7 +855,7 @@ export default [
     title: 'US Dollar',
     country: 'United States',
     countryCode: 'US',
-    isFavourite: false
+    isFavourite: true
   },
   {
     id: faker.random.uuid(),
