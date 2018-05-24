@@ -6,7 +6,8 @@ export default theme => {
     },
 
     avatar: {
-      border: `1px solid ${theme.palette.primary.main}`
+      border: `1px solid ${theme.palette.primary.main}`,
+      backgroundColor: theme.palette.secondary.main
     }
 
   };

@@ -143,7 +143,7 @@ export default [
     title: 'Swiss Franc',
     country: 'Switzerland',
     countryCode: 'CH',
-    isFavourite: true
+    isFavourite: false
   },
   {
     id: faker.random.uuid(),
@@ -215,7 +215,7 @@ export default [
     title: 'Euro',
     country: 'Germany',
     countryCode: 'EU',
-    isFavourite: false
+    isFavourite: true
   },
   {
     id: faker.random.uuid(),
@@ -751,7 +751,7 @@ export default [
     title: 'Russian Ruble',
     country: 'Russian Federation',
     countryCode: 'RU',
-    isFavourite: false
+    isFavourite: true
   },
   {
     id: faker.random.uuid(),
