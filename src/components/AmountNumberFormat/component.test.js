@@ -4,5 +4,5 @@ import { expect } from 'chai';
 import { AmountNumberFormat } from './component';
 
 it('renders without crashing', () => {
-  shallow(<AmountNumberFormat />);
+  shallow(<AmountNumberFormat inputRef={ () => {} } />);
 });

@@ -4,5 +4,5 @@ import { expect } from 'chai';
 import { MuiNumberFormat } from './component';
 
 it('renders without crashing', () => {
-  shallow(<MuiNumberFormat />);
+  shallow(<MuiNumberFormat inputRef={ () => {} } />);
 });
