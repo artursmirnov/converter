@@ -1,12 +1,19 @@
 export default theme => {
+  const baseCurrencyPanelHeight = theme.spacing.unit * 10;
+
   return {
 
     root: {
-      marginBottom: theme.spacing.unit * 2
+      marginBottom: theme.spacing.unit * 2,
+      height: baseCurrencyPanelHeight
     },
 
     paper: {
-      backgroundColor: theme.palette.primary.main
+      backgroundColor: theme.palette.primary.main,
+      position: 'fixed',
+      width: '100%',
+      zIndex: 1,
+      height: baseCurrencyPanelHeight
     },
 
     listPaper: {
