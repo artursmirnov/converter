@@ -11,6 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import CurrencyFlag from '../CurrencyFlag';
 import TextField from '@material-ui/core/TextField';
+import AmountNumberFormat from '../AmountNumberFormat';
 
 import config from '../../config/app';
 
@@ -50,9 +51,12 @@ export class BaseCurrency extends Component {
                         label='Amount'
                         value={ amount }
                         className={ classes.amount }
-                        inputProps={{
-                          className: classes.amountInput,
-                          onBlur: this.handleAmountBlur
+                        InputProps={{
+                          inputComponent: AmountNumberFormat,
+                          inputProps: {
+                            className: classes.amountInput,
+                            onBlur: this.handleAmountBlur
+                          }
                         }}
                         InputLabelProps={{
                           shrink: true,
