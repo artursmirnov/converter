@@ -45,8 +45,10 @@ export default function reduce(state = initialState, action = {}) {
       });
 
     case SET_BASE_CURRENCY:
+      const baseCurrency = state.currencies[action.code];
       return state.merge({
-        baseCurrency: action.code
+        baseCurrency: action.code,
+        currencies: merge({}, state.currencies, { [action.code]: { ...baseCurrency, isFavourite: true } })
       });
 
     case CLEAR_FAVOURITES:
