@@ -8,8 +8,7 @@ import ConverterGrid from '../../components/ConverterGrid';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import { Help } from 'mdi-material-ui';
+import CurrencyFlag from '../CurrencyFlag';
 
 import styles from './styles';
 
@@ -35,12 +34,12 @@ export class BaseCurrency extends Component {
               <List className={ classes.list }>
                 { currency ? (
                   <ListItem button onClick={ this.handleSelectBaseCurrencyClick } >
-                    <Avatar>{ currency.code }</Avatar>
+                    <CurrencyFlag countryCode={ currency.countryCode } />
                     <ListItemText primary={ currency.code } secondary={ currency.title } />
                   </ListItem>
                 ) : (
                   <ListItem button onClick={ this.handleSelectBaseCurrencyClick } >
-                    <Avatar><Help /></Avatar>
+                    <CurrencyFlag />
                     <ListItemText primary='Click to select Base Currency' />
                   </ListItem>
                 )}

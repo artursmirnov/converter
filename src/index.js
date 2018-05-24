@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import registerServiceWorker from './registerServiceWorker';
 import 'typeface-roboto';
+import 'flag-icon-css/css/flag-icon.min.css';
 
 import sagaMiddleware, { run } from './store/sagaMiddleware';
 import * as sagas from './store/sagas';

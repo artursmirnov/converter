@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import classnames from 'classnames';
 
 import Avatar from '@material-ui/core/Avatar';
 import { Help } from 'mdi-material-ui';
@@ -14,21 +15,24 @@ export class CurrencyFlag extends Component {
   }
 
   static defaultProps = {
+    countryCode: ''
   }
 
   render() {
     const { classes, countryCode } = this.props;
+    const hasFlag = !!countryCode;
+    const avatarClassName = classnames(classes.avatar, {
+      'flag-icon-background': hasFlag,
+      'flag-icon-squared': hasFlag,
+      [`flag-icon-${countryCode.toLowerCase()}`]: hasFlag,
+    })
 
     return (
       <div className={ classes.root }>
-        <Avatar>
-          { countryCode ? (
-            <span>
-              { countryCode }
-            </span>
-          ) : (
+        <Avatar className={ avatarClassName } >
+          { !hasFlag &&
             <Help />
-          )}
+          }
         </Avatar>
       </div>
     );

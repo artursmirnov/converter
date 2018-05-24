@@ -3,6 +3,10 @@ export default theme => {
 
     root: {
 
+    },
+
+    avatar: {
+      border: `1px solid ${theme.palette.primary.main}`
     }
 
   };

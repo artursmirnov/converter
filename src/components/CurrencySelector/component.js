@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { values } from 'lodash';
 import currencyShape from '../../helpers/currencyShape';
 
-import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -13,6 +12,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Checkbox from '@material-ui/core/Checkbox';
 import Loading from '../Loading';
 import Message from '../Message';
+import CurrencyFlag from '../CurrencyFlag';
 
 import styles from './styles';
 
@@ -45,9 +45,7 @@ export class CurrencySelector extends Component {
             { currenciesList.map(currency => (
               <ListItem button key={ currency.id } onClick={ this.handleToggleCurrency(currency) } >
                 <ListItemAvatar className={ classes.avatar }>
-                  <Avatar className={ classes.avatar }>
-                    { currency.code }
-                  </Avatar>
+                  <CurrencyFlag countryCode={ currency.countryCode } />
                 </ListItemAvatar>
                 <ListItemText
                   primary={ currency.title }

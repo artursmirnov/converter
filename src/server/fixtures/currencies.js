@@ -30,7 +30,7 @@ export default [
     code: 'ANG',
     title: 'Netherlands Antillian Guilder',
     country: 'Netherlands Antilles',
-    countryCode: 'AN',
+    countryCode: 'NL',
     isFavourite: false
   },
   {
@@ -942,7 +942,7 @@ export default [
     code: 'XCD',
     title: 'East Caribbean Dollar',
     country: 'East Caribbean',
-    countryCode: '',
+    countryCode: 'DM',
     isFavourite: false
   },
   {
