@@ -22,11 +22,11 @@ export class ConverterGrid extends Component {
     return (
       <div className={ classes.root }>
         <Grid container spacing={ spacing } >
-          <Grid item sm ></Grid>
-          <Grid item xs={12} sm={9} lg={6} >
+          <Grid item xs ></Grid>
+          <Grid item xs={11} sm={9} lg={6} >
             { children }
           </Grid>
-          <Grid item sm ></Grid>
+          <Grid item xs ></Grid>
         </Grid>
       </div>
     );

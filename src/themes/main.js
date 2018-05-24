@@ -11,6 +11,14 @@ const theme = createMuiTheme({
 
   overrides: {
 
+    MuiButton: {
+
+      root: {
+        whiteSpace: 'nowrap'
+      }
+
+    },
+
     MuiBackdrop: {
 
       root: {
@@ -36,6 +44,15 @@ const theme = createMuiTheme({
       root: {
         padding: '16px',
         margin: 0
+      }
+
+    },
+
+    MuiListItemSecondaryAction: {
+
+      root: {
+        display: 'flex',
+        alignItems: 'center'
       }
 
     }

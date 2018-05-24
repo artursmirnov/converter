@@ -85,14 +85,6 @@ export class CurrencyConverterPage extends Component {
         <BottomPanel>
           <ConverterGrid>
             <ActionsGrid>
-              <Button
-                fullWidth
-                variant='raised'
-                color='primary'
-                onClick={ this.handleSelectCurrenciesClick }
-              >
-                Select Currencies
-              </Button>
               { hasFavouriteCurrencies &&
                 <Button
                   fullWidth
@@ -102,6 +94,14 @@ export class CurrencyConverterPage extends Component {
                   Clear List
                 </Button>
               }
+              <Button
+                fullWidth
+                variant='raised'
+                color='primary'
+                onClick={ this.handleSelectCurrenciesClick }
+              >
+                Select Currencies
+              </Button>
             </ActionsGrid>
           </ConverterGrid>
         </BottomPanel>
